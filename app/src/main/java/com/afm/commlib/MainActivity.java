@@ -1,6 +1,7 @@
 package com.afm.commlib;
 
-import com.afmoney.commlibrary.bases.BaseActivity;
+
+import com.afm.commlibrary.bases.BaseActivity;
 
 public class MainActivity extends BaseActivity {
 
