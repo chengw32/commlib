@@ -2,16 +2,11 @@ package com.afmoney.commlibrary.Utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.text.TextUtils;
 
 import com.afmoney.commlibrary.application.BaseApplication;
-import com.afmoney.commlibrary.beans.LogBean;
-import com.alibaba.fastjson.JSON;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -31,7 +26,7 @@ public class BaseSPUtil {
      */
     public static void put(String key, Object object) {
 
-        SharedPreferences sp = BaseApplication.context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
+        SharedPreferences sp = BaseApplication.mInstance.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
 
         if (object instanceof String) {
@@ -59,7 +54,7 @@ public class BaseSPUtil {
      * @return
      */
     public static Object get(String key, Object defaultObject) {
-        SharedPreferences sp = BaseApplication.context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
+        SharedPreferences sp = BaseApplication.mInstance.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
 
         if (defaultObject instanceof String) {
             return sp.getString(key, (String) defaultObject);

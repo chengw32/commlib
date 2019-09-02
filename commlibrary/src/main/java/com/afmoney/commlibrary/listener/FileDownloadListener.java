@@ -15,6 +15,7 @@
  */
 package com.afmoney.commlibrary.listener;
 
+
 import com.afmoney.commlibrary.Utils.XLogUtil;
 import com.lzy.okgo.model.Progress;
 import com.lzy.okserver.download.DownloadListener;

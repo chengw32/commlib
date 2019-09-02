@@ -15,7 +15,7 @@ public class XToastUtil {
 	public static void show(String msg) {
 		if (!isShow)return;
 		if (null == toast) {
-			toast = Toast.makeText(BaseApplication.context, msg, Toast.LENGTH_SHORT);
+			toast = Toast.makeText(BaseApplication.mInstance, msg, Toast.LENGTH_SHORT);
 //            toast.setGravity(Gravity.BOTTOM, 0, 0);
 //            LayoutInflater inflater = (LayoutInflater) context
 //                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);

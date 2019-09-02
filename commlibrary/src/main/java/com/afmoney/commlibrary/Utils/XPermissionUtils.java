@@ -4,8 +4,6 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 
-import com.afmoney.commlibrary.R;
-
 import pub.devrel.easypermissions.EasyPermissions;
 
 /**

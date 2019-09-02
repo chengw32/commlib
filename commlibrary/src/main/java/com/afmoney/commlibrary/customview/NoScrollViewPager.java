@@ -1,9 +1,10 @@
 package com.afmoney.commlibrary.customview;
 
 import android.content.Context;
-import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+
+import androidx.viewpager.widget.ViewPager;
 
 /**
  * 不能左右划的ViewPager

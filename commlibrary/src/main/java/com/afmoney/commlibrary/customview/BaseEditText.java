@@ -5,9 +5,6 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.widget.EditText;
-import android.widget.TextView;
-
-import com.afmoney.commlibrary.Utils.XLogUtil;
 
 /**
  * @version 1.0

@@ -89,12 +89,12 @@ public abstract class OkGoCallBack<T> extends JsonCallback<T> {
                 //token异常{ 2001：token 为空  。2004：token失效}
                 BaseSPUtil.setLogin(false);
                 BaseSPUtil.setToken("");
-                Class<?> aClass = BaseApplication.context.getClassLoader().loadClass("com.rongta.cloudprint.ui.login.LoginAccountActivity");
+                Class<?> aClass = BaseApplication.mInstance.getClassLoader().loadClass("com.rongta.cloudprint.ui.login.LoginAccountActivity");
                 if (null != aClass) {
                     ActivityManagerUtil.getInstance().closeAll();
-                    Intent intent = new Intent(BaseApplication.context, aClass);
+                    Intent intent = new Intent(BaseApplication.mInstance, aClass);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    BaseApplication.context.startActivity(intent);
+                    BaseApplication.mInstance.startActivity(intent);
                 }else {
                     XLogUtil.e("OkGoCallBack loadClass LoginAccountActivity=null");
                 }

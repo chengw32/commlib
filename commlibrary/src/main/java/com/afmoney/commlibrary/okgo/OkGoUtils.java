@@ -2,23 +2,18 @@ package com.afmoney.commlibrary.okgo;
 
 import android.Manifest;
 import android.app.Activity;
-import android.content.pm.PackageManager;
-import android.support.v4.app.ActivityCompat;
 import android.text.TextUtils;
 
-import com.afmoney.commlibrary.Utils.Constants;
 import com.afmoney.commlibrary.Utils.BaseSPUtil;
-import com.afmoney.commlibrary.Utils.XLogUtil;
+import com.afmoney.commlibrary.Utils.Constants;
 import com.afmoney.commlibrary.Utils.XPermissionUtils;
 import com.afmoney.commlibrary.Utils.XToastUtil;
 import com.afmoney.commlibrary.Utils.XUtils;
 import com.afmoney.commlibrary.application.BaseApplication;
 import com.afmoney.commlibrary.model.BaseParams;
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.convert.StringConvert;
-import com.lzy.okgo.model.HttpParams;
 import com.lzy.okgo.request.GetRequest;
 import com.lzy.okgo.request.PostRequest;
 import com.lzy.okserver.OkDownload;
@@ -31,10 +26,6 @@ import java.io.File;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import static java.util.regex.Pattern.compile;
 
 
 /**

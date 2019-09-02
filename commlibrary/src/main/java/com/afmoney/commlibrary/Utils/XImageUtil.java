@@ -37,7 +37,7 @@ public class XImageUtil {
 		RequestOptions options = new RequestOptions()
 				.centerCrop()
 				.diskCacheStrategy(DiskCacheStrategy.ALL);
-		Glide.with(BaseApplication.context)
+		Glide.with(BaseApplication.mInstance)
 				.setDefaultRequestOptions(
 						new RequestOptions()
 								.frame(1000000)
@@ -56,7 +56,7 @@ public class XImageUtil {
 				.placeholder(R.color.bar_grey)
 				.error(R.color.bar_grey)
 				.diskCacheStrategy(DiskCacheStrategy.ALL);
-		Glide.with(BaseApplication.context)
+		Glide.with(BaseApplication.mInstance)
 				.load(url)
 				.apply(options)
 				.into(mCoverImage);

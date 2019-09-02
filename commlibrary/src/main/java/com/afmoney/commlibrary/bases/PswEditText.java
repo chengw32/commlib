@@ -2,7 +2,6 @@ package com.afmoney.commlibrary.bases;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.support.annotation.Nullable;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -18,6 +17,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.afmoney.commlibrary.R;
+
+import androidx.annotation.Nullable;
 
 
 /**

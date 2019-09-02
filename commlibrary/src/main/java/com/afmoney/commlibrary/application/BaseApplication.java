@@ -3,10 +3,7 @@ package com.afmoney.commlibrary.application;
 import android.app.Application;
 import android.os.Environment;
 
-import com.afmoney.commlibrary.Utils.ApplicationUtil;
 import com.lzy.okgo.OkGo;
-import com.tencent.bugly.Bugly;
-import com.tencent.bugly.crashreport.CrashReport;
 import com.uuzuche.lib_zxing.activity.ZXingLibrary;
 
 import java.io.File;
@@ -21,12 +18,12 @@ public class BaseApplication extends Application {
     /**
      * The context.
      */
-    public static Application context;
+    public static Application mInstance;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        context = this;
+        mInstance = this;
         OkGo.getInstance().init(this);
         ZXingLibrary.initDisplayOpinion(this);
 

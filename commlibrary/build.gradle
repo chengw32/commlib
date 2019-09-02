@@ -6,7 +6,7 @@ android {
     compileSdkVersion 28
 
     defaultConfig {
-        minSdkVersion 15
+        minSdkVersion 19
         targetSdkVersion 28
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -31,10 +31,10 @@ buildscript {
     repositories {
         google()
         jcenter()
-
+        mavenCentral()
     }
     dependencies {
-        classpath 'com.jakewharton:butterknife-gradle-plugin:9.0.0'
+        classpath 'com.jakewharton:butterknife-gradle-plugin:10.1.0'
     }
 }
 
@@ -50,19 +50,20 @@ allprojects {
 dependencies {
     api fileTree(dir: 'libs', include: ['*.jar'])
 
-    api 'com.android.support:recyclerview-v7:28.0.0'
-    api 'com.android.support:appcompat-v7:28.0.0'
     //fastjson
-    api 'com.alibaba:fastjson:1.1.70.android'
+    api 'com.alibaba:fastjson:1.1.71.android'
 
     //okgo
     api 'com.lzy.net:okgo:3.0.4'
     //okgo 下载文件框架
     api 'com.lzy.net:okserver:2.0.5'
+
     //沉浸式 https://github.com/gyf-dev/ImmersionBar
-    api 'com.gyf.barlibrary:barlibrary:2.3.0'
+    api 'com.gyf.immersionbar:immersionbar:3.0.0-beta07'
+
     //eventbus
     api 'org.greenrobot:eventbus:3.1.1'
+
     //屏幕适配只需要在 清单配置以下
 //            <meta-data
 //                android:name="design_width_in_dp"
@@ -70,20 +71,36 @@ dependencies {
 //            <meta-data
 //                android:name="design_height_in_dp"
 //                android:value="640"/>
+    //设计图大小根据项目ui配置
     api 'me.jessyan:autosize:1.1.0'
+
+
     //图片选择   https://github.com/LuckSiege/PictureSelector
-    api 'com.github.LuckSiege.PictureSelector:picture_library:v2.2.3'
-    //recycleView Adapter
-    api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.15'
+    //需要再项目级的
+    // allprojects {
+    //    repositories {
+    //
+    //配置这个
+    //        maven { url "https://jitpack.io" }
+    //    }
+    //}
+    api 'com.github.LuckSiege.PictureSelector:picture_library:v2.2.4'
 
-    //腾讯bugly
-//    api 'com.tencent.bugly:crashreport:latest.release'
-    //bugly 升级模块已经集成 crash 上报功能
-    api 'com.tencent.bugly:crashreport_upgrade:latest.release'//其中latest.release指代最新版本号，也可以指定明确的版本号，例如1.2.0
-    api 'com.tencent.bugly:nativecrashreport:latest.release'
 
-    //动态申请权限
-    api 'pub.devrel:easypermissions:2.0.1'
+    //recycleView Adapter https://github.com/CymChad/BaseRecyclerViewAdapterHelper
+    //需要再项目级的
+    // allprojects {
+    //    repositories {
+    //
+    //配置这个
+    //        maven { url "https://jitpack.io" }
+    //    }
+    //}
+    api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.45-androidx'
+
+
+    //动态申请权限（适配Androidx的版本）
+    api 'pub.devrel:easypermissions:3.0.0'
 
     //底部 tab控件
     api 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
@@ -91,6 +108,8 @@ dependencies {
 //广告轮播控件  https://github.com/youth5201314/banner
     api 'com.youth.banner:banner:1.4.10'
 
+//二维码扫码  application oncreate 中初始化即可 ：ZXingLibrary.initDisplayOpinion(this); 需要加上震动权限不然返回结果null
+    api 'cn.yipianfengye.android:zxing-library:2.2'
 
     //需要在 app级的 build.gradle 下配置 annotationProcessor 'com.jakewharton:butterknife-compiler:9.0.0'
     //在 app 级的 build.gradle 的 android{} 下配置 ：
@@ -98,7 +117,14 @@ dependencies {
     //        sourceCompatibility JavaVersion.VERSION_1_8
     //        targetCompatibility JavaVersion.VERSION_1_8
     //    }
-    api 'com.jakewharton:butterknife:9.0.0'
-//二维码扫码  application oncreate 中初始化即可 ：ZXingLibrary.initDisplayOpinion(this); 需要加上震动权限不然返回结果null
-    api 'cn.yipianfengye.android:zxing-library:2.2'
+    api 'com.jakewharton:butterknife:10.1.0'
+
+
+    //androidx
+    api 'androidx.annotation:annotation:1.1.0'
+    api 'androidx.appcompat:appcompat:1.1.0-rc01'
+    api 'androidx.recyclerview:recyclerview:1.1.0-beta03'
+    api 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0-alpha02'
+    api 'androidx.appcompat:appcompat:1.0.2'
+
 }

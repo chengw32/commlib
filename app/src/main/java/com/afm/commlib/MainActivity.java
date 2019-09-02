@@ -1,13 +1,22 @@
 package com.afm.commlib;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import com.afmoney.commlibrary.bases.BaseActivity;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void setContentView() {
         setContentView(R.layout.activity_main);
+    }
+
+    @Override
+    public void initUI() {
+
+    }
+
+    @Override
+    public void initData() {
+
     }
 }
