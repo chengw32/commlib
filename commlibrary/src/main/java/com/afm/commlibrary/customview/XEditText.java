@@ -14,16 +14,16 @@ import android.widget.EditText;
  * @Modified: By:
  */
 @SuppressLint("AppCompatCustomView")
-public class BaseEditText extends EditText {
-    public BaseEditText(Context context) {
+public class XEditText extends EditText {
+    public XEditText(Context context) {
         super(context);
     }
 
-    public BaseEditText(Context context, AttributeSet attrs) {
+    public XEditText(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public BaseEditText(Context context, AttributeSet attrs, int defStyleAttr) {
+    public XEditText(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
@@ -44,7 +44,7 @@ public class BaseEditText extends EditText {
      * Time 2019/7/31 9:01
      * Des 获取字符串并去掉头尾空格
      * */
-    public String getTextX() {
+    public String getXText() {
         return super.getText().toString().trim();
     }
 

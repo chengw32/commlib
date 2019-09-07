@@ -1,14 +1,14 @@
 package com.afm.commlib;
 
 
-import com.afm.commlibrary.bases.BaseActivity;
+import com.afm.commlibrary.bases.BaseWithImmersionBarActivity;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseWithImmersionBarActivity {
 
 
     @Override
-    public void setContentView() {
-        setContentView(R.layout.activity_main);
+    public int setContentView() {
+       return R.layout.activity_main;
     }
 
     @Override

@@ -4,9 +4,14 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.text.Layout;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
+import com.afm.commlibrary.R;
 import com.afm.commlibrary.Utils.ActivityManagerUtil;
-import com.gyf.immersionbar.ImmersionBar;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -26,13 +31,18 @@ import pub.devrel.easypermissions.EasyPermissions;
 public abstract class BaseActivity extends AppCompatActivity implements EasyPermissions.PermissionCallbacks {
 
     protected Activity xContext;
+    protected TopBarView mTopBarView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         xContext = this;
         ActivityManagerUtil.getInstance().addActivity(this);
-        setContentView();
+        setContentView(R.layout.base_content_layout);
+        ViewGroup viewById = findViewById(R.id.mContent);
+        View inflate = LayoutInflater.from(this).inflate(setContentView(), null);
+        mTopBarView = findViewById(R.id.mTopBarView);
+        viewById.addView(inflate);
         EventBus.getDefault().register(this);
         ButterKnife.bind(this);
         initUI();
@@ -52,7 +62,7 @@ public abstract class BaseActivity extends AppCompatActivity implements EasyPerm
         super.onResume();
     }
 
-    public abstract void setContentView();
+    public abstract int setContentView();
 
     public abstract void initUI();
 

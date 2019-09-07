@@ -102,6 +102,9 @@ public class TopBarView extends RelativeLayout {
       if (null != mTvBarLine)mTvBarLine.setVisibility(GONE);
     }
 
+    public void setBarVisibility(int visibility){
+        this.setVisibility(visibility);
+    }
 
     //    设置高度
     @Override

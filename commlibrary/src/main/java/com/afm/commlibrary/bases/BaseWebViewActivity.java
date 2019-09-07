@@ -29,8 +29,8 @@ public class BaseWebViewActivity extends BaseActivity {
 
 
     @Override
-    public void setContentView() {
-        setContentView(R.layout.web_view_layout);
+    public int setContentView() {
+       return R.layout.web_view_layout;
     }
 
     @Override
