@@ -33,3 +33,12 @@
             //注解配置
             annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
      }
+     
+     6 .沉浸式配置（记得主题改成 NoTitle 的）： 在 manifest.xml 的 <application>
+     
+                                               //配置
+                                             <meta-data
+                                                    android:name="android.max_aspect"
+                                                    android:value="2.4" />
+                                        </application>
+      7 .
