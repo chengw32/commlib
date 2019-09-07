@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.afm.commlibrary.R;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -25,19 +27,24 @@ import pub.devrel.easypermissions.EasyPermissions;
 public abstract class BaseFragment extends Fragment implements EasyPermissions.PermissionCallbacks {
 
     Unbinder unbinder;
+    protected TopBarView mTopBarView;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         EventBus.getDefault().register(this);
-        View inflate = inflater.inflate(getLayoutId(), container, false);
+        View inflate = inflater.inflate(R.layout.base_content_layout, container, false);
         unbinder = ButterKnife.bind(this, inflate);
+        ViewGroup viewById = inflate.findViewById(R.id.mContent);
+        View contentView = LayoutInflater.from(getActivity()).inflate(setContentView(), null);
+        mTopBarView = contentView.findViewById(R.id.mTopBarView);
+        viewById.addView(inflate);
         initUI(inflate);
         initData(inflate);
         return inflate;
     }
 
-    protected abstract int getLayoutId();
+    protected abstract int setContentView();
     protected abstract void initUI(View inflate);
     protected abstract void initData(View inflate);
 
