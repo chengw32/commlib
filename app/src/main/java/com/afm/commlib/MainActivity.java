@@ -7,8 +7,8 @@ public class MainActivity extends BaseWithImmersionBarActivity {
 
 
     @Override
-    public int setContentView() {
-       return R.layout.activity_main;
+    public int getLayoutId() {
+        return R.layout.activity_main;
     }
 
     @Override

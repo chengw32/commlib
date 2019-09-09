@@ -33,24 +33,53 @@ public abstract class BaseFragment extends Fragment implements EasyPermissions.P
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         EventBus.getDefault().register(this);
-        View inflate = inflater.inflate(R.layout.base_content_layout, container, false);
-        unbinder = ButterKnife.bind(this, inflate);
-        ViewGroup viewById = inflate.findViewById(R.id.mContent);
-        View contentView = LayoutInflater.from(getActivity()).inflate(setContentView(), null);
-        mTopBarView = contentView.findViewById(R.id.mTopBarView);
-        viewById.addView(inflate);
-        initUI(inflate);
-        initData(inflate);
-        return inflate;
+        View view = setContentView(inflater, container);
+        unbinder = ButterKnife.bind(this, view);
+        initUI(view);
+        initData(view);
+        return view;
     }
 
-    protected abstract int setContentView();
+    public abstract int getLayoutId();
+
     protected abstract void initUI(View inflate);
+
     protected abstract void initData(View inflate);
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(BaseEvent event) {/* Do something */};
+    public void onMessageEvent(BaseEvent event) {/* Do something */}
+
+    ;
+
+
+    protected View setContentView(LayoutInflater inflater, ViewGroup container) {
+
+        View inflate;
+        if (getCustomLayoutId() != 0) {
+            inflate = inflater.inflate(getCustomLayoutId(), container, false);
+        } else {
+            inflate = inflater.inflate(R.layout.base_content_layout, container, false);
+        }
+
+        ViewGroup viewById = inflate.findViewById(R.id.mContent);
+        View contentView = LayoutInflater.from(getActivity()).inflate(getLayoutId(), null);
+        mTopBarView = contentView.findViewById(R.id.mTopBarView);
+        viewById.addView(inflate);
+        return inflate;
+    }
+
+
+    /**
+     * Author chenguowu
+     * Time 2019/9/9 14:20
+     * 如果继承的fragment重写了这个方法并返回页面布局，则以这个布局文件为整个页面
+     * 没有Topbarview
+      */
+    protected int getCustomLayoutId() {
+        return 0;
+    }
+
 
     @Override
     public void onStop() {
@@ -61,7 +90,7 @@ public abstract class BaseFragment extends Fragment implements EasyPermissions.P
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        EasyPermissions.onRequestPermissionsResult(requestCode,permissions,grantResults ,this);
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
     }
 
 
@@ -83,7 +112,8 @@ public abstract class BaseFragment extends Fragment implements EasyPermissions.P
     public void startActivity(Class<?> clz) {
         startActivity(clz, null);
     }
-    public void startActivity(Class<?> clz, Bundle bundle){
+
+    public void startActivity(Class<?> clz, Bundle bundle) {
         Intent intent = new Intent();
         intent.setClass(getActivity(), clz);
         if (bundle != null) {
@@ -91,7 +121,6 @@ public abstract class BaseFragment extends Fragment implements EasyPermissions.P
         }
         startActivity(intent);
     }
-
 
 
     @Override

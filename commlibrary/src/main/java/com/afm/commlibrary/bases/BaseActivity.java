@@ -12,6 +12,7 @@ import android.widget.FrameLayout;
 
 import com.afm.commlibrary.R;
 import com.afm.commlibrary.Utils.ActivityManagerUtil;
+import com.gyf.immersionbar.ImmersionBar;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -38,11 +39,7 @@ public abstract class BaseActivity extends AppCompatActivity implements EasyPerm
         super.onCreate(savedInstanceState);
         xContext = this;
         ActivityManagerUtil.getInstance().addActivity(this);
-        setContentView(R.layout.base_content_layout);
-        ViewGroup viewById = findViewById(R.id.mContent);
-        View inflate = LayoutInflater.from(this).inflate(setContentView(), null);
-        mTopBarView = findViewById(R.id.mTopBarView);
-        viewById.addView(inflate);
+        setContentView();
         EventBus.getDefault().register(this);
         ButterKnife.bind(this);
         initUI();
@@ -56,17 +53,42 @@ public abstract class BaseActivity extends AppCompatActivity implements EasyPerm
         /**
          * 设置为竖屏
          */
-        if(getRequestedOrientation()!= ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE){
+        if (getRequestedOrientation() != ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
         super.onResume();
     }
 
-    public abstract int setContentView();
+    public abstract int getLayoutId();
 
     public abstract void initUI();
 
     public abstract void initData();
+
+
+    protected void setContentView() {
+        int customLayoutId = getCustomLayoutId();
+        if (customLayoutId != 0) {
+            setContentView(customLayoutId);
+        } else {
+            setContentView(R.layout.base_content_layout);
+            ViewGroup viewById = findViewById(R.id.mContent);
+            View inflate = LayoutInflater.from(this).inflate(getLayoutId(), null);
+            mTopBarView = findViewById(R.id.mTopBarView);
+            viewById.addView(inflate);
+        }
+    }
+
+
+    /**
+     * Author chenguowu
+     * Time 2019/9/9 14:20
+     * 如果继承的activity重写了这个方法并返回页面布局，则以这个布局文件为页面
+     */
+    protected int getCustomLayoutId(){
+        return 0 ;
+    }
+
 
 
     @Override
