@@ -4,16 +4,14 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 
 import com.afm.commlibrary.R;
 import com.afm.commlibrary.Utils.ActivityManagerUtil;
 import com.afm.commlibrary.Utils.XLogUtil;
-import com.gyf.immersionbar.ImmersionBar;
+import com.afm.commlibrary.application.BaseApplication;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -21,7 +19,6 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
-import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -35,6 +32,7 @@ public abstract class BaseActivity extends AppCompatActivity implements EasyPerm
 
     protected Activity xContext;
     protected TopBarView mTopBarView;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -69,17 +67,21 @@ public abstract class BaseActivity extends AppCompatActivity implements EasyPerm
 
 
     protected void setContentView() {
-        @LayoutRes int customLayoutId = getCustomLayoutId();
-        XLogUtil.e(customLayoutId);
+        setContentView(R.layout.base_content_layout);
+        mTopBarView = findViewById(R.id.mTopBarView);
+
+        ViewGroup viewById = findViewById(R.id.mContent);
+        View inflate;
+        int customLayoutId = getCustomLayoutId();
         if (customLayoutId != 0) {
-            setContentView(customLayoutId);
+            //customLayoutId 不为零说明 当前页面不需要通用的 topbarview。
+            mTopBarView.setVisibility(View.GONE);
+            inflate = LayoutInflater.from(this).inflate(getCustomLayoutId(), null);
         } else {
-            setContentView(R.layout.base_content_layout);
-            mTopBarView = findViewById(R.id.mTopBarView);
-            ViewGroup viewById = findViewById(R.id.mContent);
-            View inflate = LayoutInflater.from(this).inflate(getLayoutId(), null);
-            viewById.addView(inflate);
+            //customLayoutId为0 说明需要用共同封装的topbarview
+            inflate = LayoutInflater.from(this).inflate(getLayoutId(), null);
         }
+        viewById.addView(inflate);
     }
 
 
@@ -88,10 +90,9 @@ public abstract class BaseActivity extends AppCompatActivity implements EasyPerm
      * Time 2019/9/9 14:20
      * 如果继承的activity重写了这个方法并返回页面布局，则以这个布局文件为页面
      */
-    protected int getCustomLayoutId(){
-        return 0 ;
+    protected int getCustomLayoutId() {
+        return 0;
     }
-
 
 
     @Override

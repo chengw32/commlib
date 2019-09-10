@@ -4,6 +4,13 @@
     android:orientation="vertical"
     android:layout_height="match_parent">
 
+    <!--沉浸式去除的顶部高度-->
+    <TextView
+        android:id="@+id/mStatusBar"
+        android:layout_width="match_parent"
+        android:visibility="gone"
+        android:layout_height="@dimen/statu_bar_height" />
+
     <com.afm.commlibrary.bases.TopBarView
         android:id="@+id/mTopBarView"
         android:layout_width="wrap_content"
@@ -11,6 +18,7 @@
     <FrameLayout
         android:id="@+id/mContent"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></FrameLayout>
+        android:layout_weight="1"
+        android:layout_height="wrap_content"></FrameLayout>
 
 </LinearLayout>
