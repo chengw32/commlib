@@ -57,15 +57,20 @@ public abstract class BaseFragment extends Fragment implements EasyPermissions.P
 
         View inflate;
         if (getCustomLayoutId() != 0) {
+            //页面都是自己的
             inflate = inflater.inflate(getCustomLayoutId(), container, false);
         } else {
+            //页面封装了topbarview
             inflate = inflater.inflate(R.layout.base_content_layout, container, false);
+            mTopBarView = inflate.findViewById(R.id.mTopBarView);
+            //用于放除了topbarview的容器 这样不用每个页面都添加topbarview
+            ViewGroup content = inflate.findViewById(R.id.mContent);
+            //除了topbarview 内容部分的layout
+            View contentView = LayoutInflater.from(getActivity()).inflate(getLayoutId(), null);
+            //将内容部分添加到总容器
+            content.addView(contentView);
         }
 
-        ViewGroup viewById = inflate.findViewById(R.id.mContent);
-        View contentView = LayoutInflater.from(getActivity()).inflate(getLayoutId(), null);
-        mTopBarView = contentView.findViewById(R.id.mTopBarView);
-        viewById.addView(inflate);
         return inflate;
     }
 
@@ -75,7 +80,7 @@ public abstract class BaseFragment extends Fragment implements EasyPermissions.P
      * Time 2019/9/9 14:20
      * 如果继承的fragment重写了这个方法并返回页面布局，则以这个布局文件为整个页面
      * 没有Topbarview
-      */
+     */
     protected int getCustomLayoutId() {
         return 0;
     }

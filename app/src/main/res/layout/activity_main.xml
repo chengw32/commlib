@@ -6,10 +6,16 @@
    >
 
     <TextView
+        android:id="@+id/mxx"
         android:layout_width="wrap_content"
-        android:text="XXXXxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxXX"
+        android:text="main"
         android:layout_height="wrap_content"></TextView>
 
 
+    <FrameLayout
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_below="@id/mxx"
+        android:layout_height="match_parent"></FrameLayout>
 
 </RelativeLayout>

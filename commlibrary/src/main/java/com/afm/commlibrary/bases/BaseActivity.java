@@ -12,6 +12,7 @@ import android.widget.FrameLayout;
 
 import com.afm.commlibrary.R;
 import com.afm.commlibrary.Utils.ActivityManagerUtil;
+import com.afm.commlibrary.Utils.XLogUtil;
 import com.gyf.immersionbar.ImmersionBar;
 
 import org.greenrobot.eventbus.EventBus;
@@ -20,6 +21,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
+import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -67,14 +69,15 @@ public abstract class BaseActivity extends AppCompatActivity implements EasyPerm
 
 
     protected void setContentView() {
-        int customLayoutId = getCustomLayoutId();
+        @LayoutRes int customLayoutId = getCustomLayoutId();
+        XLogUtil.e(customLayoutId);
         if (customLayoutId != 0) {
             setContentView(customLayoutId);
         } else {
             setContentView(R.layout.base_content_layout);
+            mTopBarView = findViewById(R.id.mTopBarView);
             ViewGroup viewById = findViewById(R.id.mContent);
             View inflate = LayoutInflater.from(this).inflate(getLayoutId(), null);
-            mTopBarView = findViewById(R.id.mTopBarView);
             viewById.addView(inflate);
         }
     }
