@@ -3,6 +3,8 @@ package com.afm.commlibrary.bases;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +34,7 @@ public abstract class BaseActivity extends AppCompatActivity implements EasyPerm
 
     protected Activity xContext;
     protected TopBarView mTopBarView;
+    protected View mStatusBar;
 
 
     @Override
@@ -68,6 +71,7 @@ public abstract class BaseActivity extends AppCompatActivity implements EasyPerm
 
     protected void setContentView() {
         setContentView(R.layout.base_content_layout);
+        mStatusBar = findViewById(R.id.mStatusBar);
         mTopBarView = findViewById(R.id.mTopBarView);
 
         ViewGroup viewById = findViewById(R.id.mContent);
@@ -81,6 +85,17 @@ public abstract class BaseActivity extends AppCompatActivity implements EasyPerm
             //customLayoutId为0 说明需要用共同封装的topbarview
             inflate = LayoutInflater.from(this).inflate(getLayoutId(), null);
         }
+        Drawable background = inflate.getBackground();
+        if (background instanceof ColorDrawable) {
+            ColorDrawable colorDrawable = (ColorDrawable) background;
+            int color = colorDrawable.getColor();
+            XLogUtil.e(color);
+            if (color != 0) {
+                mTopBarView.setBackgroundColor(color);
+                mStatusBar.setBackgroundColor(color);
+            }
+        }
+
         viewById.addView(inflate);
     }
 

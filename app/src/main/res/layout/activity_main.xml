@@ -1,21 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:x="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
    >
 
-    <TextView
-        android:id="@+id/mxx"
-        android:layout_width="wrap_content"
-        android:text="main"
-        android:layout_height="wrap_content"></TextView>
 
-
-    <FrameLayout
-        android:id="@+id/content"
+    <com.afm.commlibrary.customview.XEditTextWithClean
+        android:id="@+id/xxxx"
+        android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:layout_below="@id/mxx"
-        android:layout_height="match_parent"></FrameLayout>
+        x:x_edittext_text_size="10sp"></com.afm.commlibrary.customview.XEditTextWithClean>
 
 </RelativeLayout>

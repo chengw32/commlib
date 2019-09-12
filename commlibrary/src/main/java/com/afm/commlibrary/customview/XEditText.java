@@ -17,14 +17,21 @@ import android.widget.EditText;
 public class XEditText extends EditText {
     public XEditText(Context context) {
         super(context);
+        init();
     }
 
     public XEditText(Context context, AttributeSet attrs) {
         super(context, attrs);
+        init();
     }
 
     public XEditText(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        init();
+    }
+
+    private void init() {
+        setBackground(null);
     }
 
 
