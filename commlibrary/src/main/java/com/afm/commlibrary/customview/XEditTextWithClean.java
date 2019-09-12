@@ -34,6 +34,7 @@ public class XEditTextWithClean extends FrameLayout {
     private XEditText mXEdittext;
     private ImageView mCleanIcon;
     private int mTextColor,mHintColor;
+    private String mText,mHintText;
 
     public XEditTextWithClean(Context context) {
         this(context,null);
@@ -91,6 +92,9 @@ public class XEditTextWithClean extends FrameLayout {
         mHintColor = ta.getColor(R.styleable.XEditTextWithClean_x_edittext_text_color,Color.parseColor("#222222"));
         mEditTextPaddingTop = ta.getDimension(R.styleable.XEditTextWithClean_x_edittext_padding_top,dp2px(10));
         mEditTextPaddingBottom = ta.getDimension(R.styleable.XEditTextWithClean_x_edittext_padding_bottom,dp2px(10));
+        mEditTextPaddingBottom = ta.getDimension(R.styleable.XEditTextWithClean_x_edittext_padding_bottom,dp2px(10));
+        mText = ta.getString(R.styleable.XEditTextWithClean_x_edittext_text);
+        mHintText = ta.getString(R.styleable.XEditTextWithClean_x_edittext_hint_text);
 
         ta.recycle();
 
@@ -100,6 +104,8 @@ public class XEditTextWithClean extends FrameLayout {
         mXEdittext.setTextColor(mTextColor);
         mXEdittext.setHintTextColor(mHintColor);
         mXEdittext.setTextSize(mTextSize);
+        mXEdittext.setHint(mHintText);
+        mXEdittext.setText(mText);
 
 
         mXEdittext.setPadding( mXEdittext.getPaddingLeft(),(int)mEditTextPaddingTop, mXEdittext.getPaddingRight(),(int)mEditTextPaddingBottom);

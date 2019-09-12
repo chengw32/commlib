@@ -17,6 +17,8 @@
         <attr name="x_edittext_text_size" format="dimension"></attr>
         <attr name="x_edittext_padding_top" format="dimension"></attr>
         <attr name="x_edittext_padding_bottom" format="dimension"></attr>
+        <attr name="x_edittext_hint_text" format="string"></attr>
+        <attr name="x_edittext_text" format="string"></attr>
     </declare-styleable>
 
     <declare-styleable name="CircleImageView">
