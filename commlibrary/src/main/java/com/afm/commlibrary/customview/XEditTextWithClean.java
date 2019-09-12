@@ -87,9 +87,9 @@ public class XEditTextWithClean extends FrameLayout {
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.XEditTextWithClean);
         mCleanIconHeight = ta.getDimension(R.styleable.XEditTextWithClean_x_clean_icon_height, dp2px(15));
         mCleanIconWidth = ta.getDimension(R.styleable.XEditTextWithClean_x_clean_icon_width, dp2px(15));
-        mTextSize = ta.getDimension(R.styleable.XEditTextWithClean_x_edittext_text_size, sp2px(13f));
-        mTextColor = ta.getColor(R.styleable.XEditTextWithClean_x_edittext_hint_color, Color.parseColor("#000000"));
-        mHintColor = ta.getColor(R.styleable.XEditTextWithClean_x_edittext_text_color,Color.parseColor("#222222"));
+        mTextSize = ta.getDimension(R.styleable.XEditTextWithClean_x_edittext_text_size, sp2px(10f));
+        mTextColor = ta.getColor(R.styleable.XEditTextWithClean_x_edittext_text_color, Color.parseColor("#000000"));
+        mHintColor = ta.getColor(R.styleable.XEditTextWithClean_x_edittext_hint_color,Color.parseColor("#222222"));
         mEditTextPaddingTop = ta.getDimension(R.styleable.XEditTextWithClean_x_edittext_padding_top,dp2px(10));
         mEditTextPaddingBottom = ta.getDimension(R.styleable.XEditTextWithClean_x_edittext_padding_bottom,dp2px(10));
         mEditTextPaddingBottom = ta.getDimension(R.styleable.XEditTextWithClean_x_edittext_padding_bottom,dp2px(10));
