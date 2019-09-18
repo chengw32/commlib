@@ -7,11 +7,18 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.provider.Settings;
+import android.util.DisplayMetrics;
+import android.view.Display;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.afm.commlibrary.R;
+import com.afm.commlibrary.application.BaseApplication;
 
+import java.lang.reflect.Method;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -91,6 +98,50 @@ public class XUtils {
                             }).create().show();
         }
         return networkAvalible;
+    }
+
+    public static Integer[] getWidthAndHeight(Window window) {
+        if (window == null) {
+            return null;
+        }
+        Integer[] integer = new Integer[2];
+        DisplayMetrics dm = new DisplayMetrics();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            window.getWindowManager().getDefaultDisplay().getRealMetrics(dm);
+        } else {
+            window.getWindowManager().getDefaultDisplay().getMetrics(dm);
+        }
+        integer[0] = dm.widthPixels;
+        integer[1] = dm.heightPixels;
+        return integer;
+    }
+
+
+    public static int getVirtualBarHeight(Context context) {
+        int vh = 0;
+        WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        Display display = windowManager.getDefaultDisplay();
+        DisplayMetrics dm = new DisplayMetrics();
+        try {
+            @SuppressWarnings("rawtypes")
+            Class c = Class.forName("android.view.Display");
+            @SuppressWarnings("unchecked")
+            Method method = c.getMethod("getRealMetrics", DisplayMetrics.class);
+            method.invoke(display, dm);
+            vh = dm.heightPixels - display.getHeight();
+        } catch (Exception e) {
+        }
+        return vh;
+    }
+
+    public static int getTopStatusBarHeight(){
+        int statusBarHeight = 0 ;
+        int resourceId = BaseApplication.mInstance.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            //根据资源ID获取响应的尺寸值
+            statusBarHeight = BaseApplication.mInstance.getResources().getDimensionPixelSize(resourceId);
+        }
+        return statusBarHeight ;
     }
 
 }

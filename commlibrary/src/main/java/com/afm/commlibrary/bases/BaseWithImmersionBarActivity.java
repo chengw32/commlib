@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 
 
 import com.afm.commlibrary.R;
+import com.afm.commlibrary.Utils.XLogUtil;
 import com.afm.commlibrary.application.BaseApplication;
 import com.gyf.immersionbar.ImmersionBar;
 

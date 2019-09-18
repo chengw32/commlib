@@ -89,7 +89,7 @@ public class XEditTextWithClean extends FrameLayout {
         mCleanIconWidth = ta.getDimension(R.styleable.XEditTextWithClean_x_clean_icon_width, dp2px(15));
         mTextSize = ta.getDimension(R.styleable.XEditTextWithClean_x_edittext_text_size, sp2px(10f));
         mTextColor = ta.getColor(R.styleable.XEditTextWithClean_x_edittext_text_color, Color.parseColor("#000000"));
-        mHintColor = ta.getColor(R.styleable.XEditTextWithClean_x_edittext_hint_color,Color.parseColor("#222222"));
+        mHintColor = ta.getColor(R.styleable.XEditTextWithClean_x_edittext_hint_color,Color.parseColor("#CCCCCC"));
         mEditTextPaddingTop = ta.getDimension(R.styleable.XEditTextWithClean_x_edittext_padding_top,dp2px(10));
         mEditTextPaddingBottom = ta.getDimension(R.styleable.XEditTextWithClean_x_edittext_padding_bottom,dp2px(10));
         mEditTextPaddingBottom = ta.getDimension(R.styleable.XEditTextWithClean_x_edittext_padding_bottom,dp2px(10));
@@ -119,13 +119,11 @@ public class XEditTextWithClean extends FrameLayout {
 
     protected int dp2px(float dp) {
         final float scale = getContext().getResources().getDisplayMetrics().density;
-        XLogUtil.e("dp-scale: "+scale);
-        return (int) (dp * scale + 0.5f);
+        return (int) (dp * scale );
     }
 
     protected int sp2px(float sp) {
         final float scale = this.getContext().getResources().getDisplayMetrics().scaledDensity;
-        XLogUtil.e("sp-scale: "+scale);
         return (int) (sp * scale );
     }
 }

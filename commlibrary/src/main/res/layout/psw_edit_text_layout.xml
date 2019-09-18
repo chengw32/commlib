@@ -16,8 +16,6 @@
             android:layout_weight="1"
             android:background="@null"
             android:inputType="textPassword"
-            android:textColor="@color/black222222"
-            android:textColorHint="@color/greyCCCCCC"
             android:textSize="17sp"
             />
 

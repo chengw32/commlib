@@ -8,12 +8,14 @@
     <TextView
         android:id="@+id/mStatusBar"
         android:layout_width="match_parent"
+        android:background="@color/blue"
         android:visibility="gone"
         android:layout_height="@dimen/statu_bar_height" />
 
     <com.afm.commlibrary.bases.TopBarView
         android:id="@+id/mTopBarView"
         android:layout_width="wrap_content"
+        android:background="@color/black"
         android:layout_height="@dimen/top_bar_height"></com.afm.commlibrary.bases.TopBarView>
     <FrameLayout
         android:id="@+id/mContent"

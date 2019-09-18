@@ -30,6 +30,7 @@ public class BaseApplication extends Application {
         if (resourceId > 0) {
             //根据资源ID获取响应的尺寸值
              statusBarHeight = getResources().getDimensionPixelSize(resourceId);
+             XLogUtil.e("statusBarHeight: "+statusBarHeight);
         }
         OkGo.getInstance().init(this);
         ZXingLibrary.initDisplayOpinion(this);

@@ -31,7 +31,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="26dp"
-        android:background="@color/greyE6E6E6"/>
+        android:background="@color/grgray"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -53,7 +53,7 @@
             android:id="@+id/remain_line"
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:background="@color/greyE6E6E6"/>
+            android:background="@color/grgray"/>
 
         <TextView
             android:id="@+id/dialog_right_button"
