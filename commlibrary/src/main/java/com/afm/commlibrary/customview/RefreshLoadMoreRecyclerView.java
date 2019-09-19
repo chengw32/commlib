@@ -28,13 +28,12 @@ public class RefreshLoadMoreRecyclerView extends RefreshLoadMoreRecyclerViewNoDi
 
     public RefreshLoadMoreRecyclerView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        setEnabled(false);
-        initView();
     }
 
+
+    @Override
     public void initView() {
         super.initView();
         addLineItemDecoration();
     }
-
 }
