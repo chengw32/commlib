@@ -5,6 +5,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.afm.commlibrary.R;
+import com.afm.commlibrary.adapter.XAdapter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 
 import java.util.List;
@@ -36,7 +37,7 @@ public class RefreshLoadMoreRecyclerViewNoDiver extends SwipeRefreshLayout {
         initView();
     }
 
-    private void initView() {
+    public void initView() {
         mRecyclerView = new RecyclerView(this.getContext());
         this.addView(mRecyclerView);
         //设置下拉刷新 圈圈的颜色
@@ -60,6 +61,15 @@ public class RefreshLoadMoreRecyclerViewNoDiver extends SwipeRefreshLayout {
         //调用方法 adapter.getViewByPosition 的时候需要将 recycle 设置进去
         baseRecyclerAdapter.bindToRecyclerView(mRecyclerView);
         mRecyclerView.setAdapter(baseRecyclerAdapter);
+//        emptyView = LayoutInflater.from(getContext()).inflate(R.layout.empty_layout, null);
+//        mTvEmptyHint = emptyView.findViewById(R.id.tv_empty_hint);
+//        adapter.setEmptyView(emptyView);
+    }
+    public void setAdapter(XAdapter xAdapter) {
+        adapter = xAdapter.mAdapter;
+        //调用方法 adapter.getViewByPosition 的时候需要将 recycle 设置进去
+        xAdapter.mAdapter.bindToRecyclerView(mRecyclerView);
+        mRecyclerView.setAdapter(xAdapter.mAdapter);
 //        emptyView = LayoutInflater.from(getContext()).inflate(R.layout.empty_layout, null);
 //        mTvEmptyHint = emptyView.findViewById(R.id.tv_empty_hint);
 //        adapter.setEmptyView(emptyView);

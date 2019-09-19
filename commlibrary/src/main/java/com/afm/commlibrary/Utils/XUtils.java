@@ -11,8 +11,10 @@ import android.os.Build;
 import android.provider.Settings;
 import android.util.DisplayMetrics;
 import android.view.Display;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
 import com.afm.commlibrary.R;
@@ -142,6 +144,20 @@ public class XUtils {
             statusBarHeight = BaseApplication.mInstance.getResources().getDimensionPixelSize(resourceId);
         }
         return statusBarHeight ;
+    }
+
+
+    public static void hideImm(View v){
+        InputMethodManager imm = (InputMethodManager) BaseApplication.mInstance.getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+
+        imm.hideSoftInputFromWindow(v.getWindowToken(), 0); //强制隐藏键盘
+    }
+    public static void showImm(View v){
+        InputMethodManager imm = (InputMethodManager) BaseApplication.mInstance.getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+
+        imm.showSoftInput(v,InputMethodManager.SHOW_FORCED);
     }
 
 }
