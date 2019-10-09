@@ -20,6 +20,7 @@ import android.widget.LinearLayout;
 
 import com.afm.commlibrary.R;
 import com.afm.commlibrary.Utils.XLogUtil;
+import com.afm.commlibrary.Utils.XUtils;
 
 /**
  * Author chenguowu
@@ -29,7 +30,7 @@ import com.afm.commlibrary.Utils.XLogUtil;
 public class XEditTextWithClean extends FrameLayout {
 
 
-    private float mCleanIconHeight,mCleanIconWidth,mTextSize,mEditTextPaddingTop,mEditTextPaddingBottom;
+    private float mCleanIconWH,mTextSize,mEditTextPaddingTop,mEditTextPaddingBottom,mEditTextPaddingLeft,mEditTextPaddingRight;
     private  Drawable mIconDrawable;
     private XEditText mXEdittext;
     private ImageView mCleanIcon;
@@ -55,11 +56,48 @@ public class XEditTextWithClean extends FrameLayout {
         addView(inflate);
 
         mXEdittext = inflate.findViewById(R.id.mEt);
+        mCleanIcon = inflate.findViewById(R.id.mClean);
+
+        //default 的值都是像素值 , 从xml里面获取的都会转换成像素 比如xlm配置的是 25dp ，通过ta.getDimension()之后就是 75了
+
+        TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.XEditTextWithClean);
+        mCleanIconWH = ta.getDimension(R.styleable.XEditTextWithClean_x_clean_icon_wh, XUtils.dip2px(25f));
+        mTextSize = XUtils.px2sp(ta.getDimension(R.styleable.XEditTextWithClean_x_edittext_text_size, XUtils.sp2px(13f)));
+        mTextColor = ta.getColor(R.styleable.XEditTextWithClean_x_edittext_text_color, Color.parseColor("#000000"));
+        mHintColor = ta.getColor(R.styleable.XEditTextWithClean_x_edittext_hint_color,Color.parseColor("#CCCCCC"));
+        mEditTextPaddingTop = ta.getDimension(R.styleable.XEditTextWithClean_x_edittext_padding_top,10);
+        mEditTextPaddingBottom = ta.getDimension(R.styleable.XEditTextWithClean_x_edittext_padding_bottom,XUtils.dip2px(10));
+        mEditTextPaddingLeft = ta.getDimension(R.styleable.XEditTextWithClean_x_edittext_padding_left,XUtils.dip2px(10));
+        mEditTextPaddingRight = ta.getDimension(R.styleable.XEditTextWithClean_x_edittext_padding_right,XUtils.dip2px(10));
+        mText = ta.getString(R.styleable.XEditTextWithClean_x_edittext_text);
+        mHintText = ta.getString(R.styleable.XEditTextWithClean_x_edittext_hint_text);
+        mIconDrawable = ta.getDrawable(R.styleable.XEditTextWithClean_x_clean_icon_drawable);
+
+
+        ta.recycle();
+
+
+        mXEdittext.setTextColor(mTextColor);
+        mXEdittext.setHintTextColor(mHintColor);
+        mXEdittext.setTextSize(mTextSize);
+        mXEdittext.setHint(mHintText);
+        mXEdittext.setText(mText);
+
+        if (null != mIconDrawable)mCleanIcon.setImageDrawable(mIconDrawable);
+
+
+        mXEdittext.setPadding((int) mEditTextPaddingLeft,(int)mEditTextPaddingTop, (int) mEditTextPaddingRight,(int)mEditTextPaddingBottom);
+
+
+        ViewGroup.LayoutParams iconLayoutParams = mCleanIcon.getLayoutParams();
+        iconLayoutParams.width = (int) mCleanIconWH;
+        iconLayoutParams.height = (int) mCleanIconWH;
+        mCleanIcon.setLayoutParams(iconLayoutParams);
+
         mXEdittext.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-                XLogUtil.e("beforeTextChanged="+s);
             }
 
             @Override
@@ -76,40 +114,13 @@ public class XEditTextWithClean extends FrameLayout {
 
             }
         });
-        mCleanIcon = inflate.findViewById(R.id.mClean);
+
         mCleanIcon.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 mXEdittext.setText("");
             }
         });
-
-        TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.XEditTextWithClean);
-        mCleanIconHeight = ta.getDimension(R.styleable.XEditTextWithClean_x_clean_icon_height, dp2px(15));
-        mCleanIconWidth = ta.getDimension(R.styleable.XEditTextWithClean_x_clean_icon_width, dp2px(15));
-        mTextSize = ta.getDimension(R.styleable.XEditTextWithClean_x_edittext_text_size, sp2px(10f));
-        mTextColor = ta.getColor(R.styleable.XEditTextWithClean_x_edittext_text_color, Color.parseColor("#000000"));
-        mHintColor = ta.getColor(R.styleable.XEditTextWithClean_x_edittext_hint_color,Color.parseColor("#CCCCCC"));
-        mEditTextPaddingTop = ta.getDimension(R.styleable.XEditTextWithClean_x_edittext_padding_top,dp2px(10));
-        mEditTextPaddingBottom = ta.getDimension(R.styleable.XEditTextWithClean_x_edittext_padding_bottom,dp2px(10));
-        mEditTextPaddingBottom = ta.getDimension(R.styleable.XEditTextWithClean_x_edittext_padding_bottom,dp2px(10));
-        mText = ta.getString(R.styleable.XEditTextWithClean_x_edittext_text);
-        mHintText = ta.getString(R.styleable.XEditTextWithClean_x_edittext_hint_text);
-
-        ta.recycle();
-
-
-        XLogUtil.e("mTextSIze: "+mTextSize);
-
-        mXEdittext.setTextColor(mTextColor);
-        mXEdittext.setHintTextColor(mHintColor);
-        mXEdittext.setTextSize(mTextSize);
-        mXEdittext.setHint(mHintText);
-        mXEdittext.setText(mText);
-
-
-        mXEdittext.setPadding( mXEdittext.getPaddingLeft(),(int)mEditTextPaddingTop, mXEdittext.getPaddingRight(),(int)mEditTextPaddingBottom);
-
     }
 
 
@@ -117,13 +128,16 @@ public class XEditTextWithClean extends FrameLayout {
         mXEdittext.setText(str);
     }
 
-    protected int dp2px(float dp) {
-        final float scale = getContext().getResources().getDisplayMetrics().density;
-        return (int) (dp * scale );
+
+
+
+    public String getText(){
+        return mXEdittext.getXText();
     }
 
-    protected int sp2px(float sp) {
-        final float scale = this.getContext().getResources().getDisplayMetrics().scaledDensity;
-        return (int) (sp * scale );
+    public boolean isEmpty(){
+        return mXEdittext.isEmpty();
     }
+
+
 }

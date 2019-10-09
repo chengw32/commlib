@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:x="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
    >
@@ -12,16 +13,22 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         x:x_edittext_hint_color="#222222"
-        x:x_edittext_hint_text="xxxxxxxxx"
-        x:x_edittext_text_size="10sp"></com.afm.commlibrary.customview.XEditTextWithClean>
-
+        x:x_edittext_text="hahahahahah"
+        x:x_clean_icon_drawable="@drawable/sel_qq"
+        x:x_edittext_padding_top="20dp"
+        ></com.afm.commlibrary.customview.XEditTextWithClean>
 
     <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/xxxx"
-        android:textColorHint="#CCCCCC"
-        android:layout_marginTop="85dp"
-        android:hint="xxxxxxxxxxxxxx"></EditText>
+        android:id="@+id/mxxxx"
+        android:layout_width="match_parent"
+        android:textSize="13sp"
+        android:text="hahahahahah"
+        android:layout_height="wrap_content"></EditText>
 
-</RelativeLayout>
+    <ImageView
+        android:id="@+id/mIv"
+        android:layout_width="50dp"
+        android:layout_height="50dp"></ImageView>
+
+
+</LinearLayout>

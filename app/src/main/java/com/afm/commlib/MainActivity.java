@@ -27,6 +27,9 @@ public class MainActivity extends BaseWithImmersionBarActivity {
     @Override
     public void initUI() {
 //
+
+
+
 //        FragmentManager fm = this.getFragmentManager();
 //                FragmentTransaction ft = fm.beginTransaction();
 //               // 将原有的Activity替换成Fragment。也可以添加到原有之上不替换 如：ft.add(R.id.rel, new
@@ -35,6 +38,12 @@ public class MainActivity extends BaseWithImmersionBarActivity {
 //                 // 提交
 //                ft.commit();
 
+
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
 
     }
 

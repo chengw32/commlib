@@ -156,8 +156,34 @@ public class XUtils {
     public static void showImm(View v){
         InputMethodManager imm = (InputMethodManager) BaseApplication.mInstance.getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
-
         imm.showSoftInput(v,InputMethodManager.SHOW_FORCED);
+    }
+
+    public static int px2sp( float pxValue) {
+        final float fontScale = BaseApplication.mInstance.getResources().getDisplayMetrics().scaledDensity;
+        return (int) (pxValue / fontScale );
+    }
+
+    public static int sp2px(float sp) {
+        final float fontScale =BaseApplication.mInstance.getResources().getDisplayMetrics().scaledDensity;
+        return (int) (sp * fontScale + 0.5f);
+    }
+
+    public static int px2dip( float pxValue) {
+        final float scale =  BaseApplication.mInstance.getResources().getDisplayMetrics().density;
+        return (int) (pxValue / scale + 0.5f);
+    }
+
+    /**
+     * 将dip或dp值转换为px值，保证尺寸大小不变
+     *
+     * @param dipValue
+     *            （DisplayMetrics类中属性density）
+     * @return
+     */
+    public static int dip2px( float dipValue) {
+        final float scale = BaseApplication.mInstance.getResources().getDisplayMetrics().density;
+        return (int) (dipValue * scale + 0.5f);
     }
 
 }

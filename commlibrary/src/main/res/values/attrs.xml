@@ -9,13 +9,14 @@
 
 
     <declare-styleable name="XEditTextWithClean">
-        <attr name="x_clean_icon_width" format="dimension"></attr>
-        <attr name="x_clean_icon_height" format="dimension"></attr>
+        <attr name="x_clean_icon_wh" format="dimension"></attr>
         <attr name="x_clean_icon_drawable" format="reference"></attr>
         <attr name="x_edittext_hint_color" format="color"></attr>
         <attr name="x_edittext_text_color" format="color"></attr>
         <attr name="x_edittext_text_size" format="dimension"></attr>
         <attr name="x_edittext_padding_top" format="dimension"></attr>
+        <attr name="x_edittext_padding_left" format="dimension"></attr>
+        <attr name="x_edittext_padding_right" format="dimension"></attr>
         <attr name="x_edittext_padding_bottom" format="dimension"></attr>
         <attr name="x_edittext_hint_text" format="string"></attr>
         <attr name="x_edittext_text" format="string"></attr>
