@@ -13,6 +13,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -36,6 +37,7 @@ public class XEditTextWithClean extends FrameLayout {
     private ImageView mCleanIcon;
     private int mTextColor,mHintColor;
     private String mText,mHintText;
+    int inputType = EditorInfo.TYPE_NULL;
 
     public XEditTextWithClean(Context context) {
         this(context,null);
@@ -57,7 +59,6 @@ public class XEditTextWithClean extends FrameLayout {
 
         mXEdittext = inflate.findViewById(R.id.mEt);
         mCleanIcon = inflate.findViewById(R.id.mClean);
-
         //default 的值都是像素值 , 从xml里面获取的都会转换成像素 比如xlm配置的是 25dp ，通过ta.getDimension()之后就是 75了
 
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.XEditTextWithClean);
@@ -69,6 +70,7 @@ public class XEditTextWithClean extends FrameLayout {
         mEditTextPaddingBottom = ta.getDimension(R.styleable.XEditTextWithClean_x_edittext_padding_bottom,XUtils.dip2px(10));
         mEditTextPaddingLeft = ta.getDimension(R.styleable.XEditTextWithClean_x_edittext_padding_left,XUtils.dip2px(10));
         mEditTextPaddingRight = ta.getDimension(R.styleable.XEditTextWithClean_x_edittext_padding_right,XUtils.dip2px(10));
+        inputType = ta.getInt(R.styleable.XEditTextWithClean_x_edittext_text_inputType, -1);
         mText = ta.getString(R.styleable.XEditTextWithClean_x_edittext_text);
         mHintText = ta.getString(R.styleable.XEditTextWithClean_x_edittext_hint_text);
         mIconDrawable = ta.getDrawable(R.styleable.XEditTextWithClean_x_clean_icon_drawable);
@@ -82,12 +84,19 @@ public class XEditTextWithClean extends FrameLayout {
         mXEdittext.setTextSize(mTextSize);
         mXEdittext.setHint(mHintText);
         mXEdittext.setText(mText);
+        if (-1 != inputType)
+        mXEdittext.setInputType(inputType);
+
+
+        //是否设置了文本 隐藏显示清空按钮
+        if (mXEdittext.isEmpty())mCleanIcon.setVisibility(GONE);
+        else mCleanIcon.setVisibility(VISIBLE);
+
 
         if (null != mIconDrawable)mCleanIcon.setImageDrawable(mIconDrawable);
 
 
         mXEdittext.setPadding((int) mEditTextPaddingLeft,(int)mEditTextPaddingTop, (int) mEditTextPaddingRight,(int)mEditTextPaddingBottom);
-
 
         ViewGroup.LayoutParams iconLayoutParams = mCleanIcon.getLayoutParams();
         iconLayoutParams.width = (int) mCleanIconWH;

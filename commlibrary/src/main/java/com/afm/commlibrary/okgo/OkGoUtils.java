@@ -42,7 +42,7 @@ public class OkGoUtils {
     private static final int REQUEST_PERMISSION_STORAGE = 0x01;
 
 
-    public static <T> void post(Activity act, BaseParams params, OkGoCallBack<T> jsonCallback) {
+    public static <T> void post(Activity act, BaseParams params, DialogCallBack<T> jsonCallback) {
 
 
         if (!XUtils.checkNetwork(act)) return;
@@ -56,7 +56,7 @@ public class OkGoUtils {
                 .execute(jsonCallback);
     }
 
-    public static <T> void put(Activity act, BaseParams params, OkGoCallBack<T> jsonCallback) {
+    public static <T> void put(Activity act, BaseParams params, DialogCallBack<T> jsonCallback) {
 
         if (!XUtils.checkNetwork(act)) return;
 
@@ -68,7 +68,7 @@ public class OkGoUtils {
 //                .isMultipart(true)         //强制使用 multipart/form-data 表单上传（只是演示，不需要的话不要设置。默认就是false）
                 .execute(jsonCallback);
     }
-    public static <T> void del(Activity act, BaseParams params, OkGoCallBack<T> jsonCallback) {
+    public static <T> void del(Activity act, BaseParams params, DialogCallBack<T> jsonCallback) {
 
         if (!XUtils.checkNetwork(act)) return;
 
@@ -81,7 +81,7 @@ public class OkGoUtils {
                 .execute(jsonCallback);
     }
 
-    public static <T> void get(Activity act, BaseParams params, OkGoCallBack<T> jsonCallback) {
+    public static <T> void get(Activity act, BaseParams params, DialogCallBack<T> jsonCallback) {
         if (!XUtils.checkNetwork(act)) return;
         OkGo.<T>get(getApiName(params))//
                 .headers("X-Access-Token", BaseSPUtil.getToken())
@@ -92,7 +92,7 @@ public class OkGoUtils {
     }
 
     //url 已经拼接好参数了
-    public static <T> void get(Activity act, String url, OkGoCallBack<T> jsonCallback) {
+    public static <T> void get(Activity act, String url, DialogCallBack<T> jsonCallback) {
         if (!XUtils.checkNetwork(act)) return;
         OkGo.<T>get(url)//
                 .headers("X-Access-Token", BaseSPUtil.getToken())

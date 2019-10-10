@@ -28,6 +28,8 @@ public class MainActivity extends BaseWithImmersionBarActivity {
     public void initUI() {
 //
 
+        XEditTextWithClean viewById = findViewById(R.id.xxxx);
+        viewById.setText("ccc");
 
 
 //        FragmentManager fm = this.getFragmentManager();

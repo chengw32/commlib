@@ -7,12 +7,15 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import com.afm.commlibrary.R;
 import com.afm.commlibrary.Utils.ActivityManagerUtil;
 import com.afm.commlibrary.Utils.XLogUtil;
+import com.afm.commlibrary.Utils.XUtils;
 import com.afm.commlibrary.application.BaseApplication;
 
 import org.greenrobot.eventbus.EventBus;
@@ -85,6 +88,8 @@ public abstract class BaseActivity extends AppCompatActivity implements EasyPerm
             //customLayoutId为0 说明需要用共同封装的topbarview
             inflate = LayoutInflater.from(this).inflate(getLayoutId(), null);
         }
+
+        //如果布局设置了颜色 则topbar跟statusBar也设置颜色
         Drawable background = inflate.getBackground();
         if (background instanceof ColorDrawable) {
             ColorDrawable colorDrawable = (ColorDrawable) background;
@@ -150,4 +155,50 @@ public abstract class BaseActivity extends AppCompatActivity implements EasyPerm
         EventBus.getDefault().unregister(this);
         super.onDestroy();
     }
+
+
+
+
+    /**
+     * 当用户离开edittext区域后自动取消焦点
+     */
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (ev.getAction() == MotionEvent.ACTION_UP) {
+            View v = getCurrentFocus();
+            if (v != null && v instanceof EditText) {
+                if (isShouldHideKeyboard(v, ev)) {
+                    XUtils.hideImm(v);
+//                        v.clearFocus();
+                }
+            }
+            return super.dispatchTouchEvent(ev);
+        }
+        // 必不可少，否则所有的组件都不会有TouchEvent了
+        if (getWindow().superDispatchTouchEvent(ev)) {
+            return true;
+        }
+        return super.dispatchTouchEvent(ev);
+    }
+
+    private boolean isShouldHideKeyboard(View v, MotionEvent event) {
+        if (v != null && (v instanceof EditText)) {
+            int[] l = {0, 0};
+            v.getLocationInWindow(l);
+            int left = l[0],
+                    top = l[1],
+                    bottom = top + v.getHeight(),
+                    right = left + v.getWidth();
+            if (event.getX() > left && event.getX() < right
+                    && event.getY() > top && event.getY() < bottom) {
+                // 点击EditText的事件，忽略它。
+                return false;
+            } else {
+                return true;
+            }
+        }
+        // 如果焦点不是EditText则忽略，这个发生在视图刚绘制完，第一个焦点不在EditText上，和用户用轨迹球选择其他的焦点
+        return false;
+    }
+
 }

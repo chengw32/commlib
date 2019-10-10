@@ -127,34 +127,4 @@ public class BaseSPUtil {
             editor.commit();
         }
     }
-
-
-    private static  String TOKEN  = "token";
-    public static String getToken() {
-        return (String) get(TOKEN, "");
-    }
-
-    public static synchronized void setToken(String token) {
-        put(TOKEN, token);
-    }
-
-    private static  String ISLOGIN  = "isLogin";
-    public static boolean isLogin() {
-        return (boolean) get(ISLOGIN, false);
-    }
-
-    public static synchronized void setLogin(boolean isLogin) {
-        put(ISLOGIN, isLogin);
-    }
-
-
-    //用户信息
-    private static final String USERINFO = "userInfo";
-    public static void saveUser(String userinfo) {
-        put(USERINFO,userinfo);
-    }
-    public static String getUserInfo(){
-        return  (String) get(USERINFO, "");
-    }
-
 }
