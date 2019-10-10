@@ -25,9 +25,9 @@ import okhttp3.Headers;
 
 public abstract class DialogCallBack<T> extends JsonCallback<T> {
 
-    private ProgressDialog dialog;
-    private Class<T> clazz;
-    private boolean isShowMessage;
+    protected ProgressDialog dialog;
+    protected Class<T> clazz;
+    protected boolean isShowMessage;
 
     public DialogCallBack(Class<T> tClass) {
         super((Class<T>) String.class);
