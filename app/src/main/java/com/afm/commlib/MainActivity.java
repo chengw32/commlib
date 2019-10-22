@@ -16,7 +16,7 @@ public class MainActivity extends BaseWithImmersionBarActivity {
 
     @Override
     public int getLayoutId() {
-        return R.layout.activity_main;
+        return 0;
     }
 
 //    @Override
@@ -26,28 +26,10 @@ public class MainActivity extends BaseWithImmersionBarActivity {
 
     @Override
     public void initUI() {
-//
-
-        XEditTextWithClean viewById = findViewById(R.id.xxxx);
-        viewById.setText("ccc");
-
-
-//        FragmentManager fm = this.getFragmentManager();
-//                FragmentTransaction ft = fm.beginTransaction();
-//               // 将原有的Activity替换成Fragment。也可以添加到原有之上不替换 如：ft.add(R.id.rel, new
-//               // Fragment()) ;如果添加的多了会比较耗资源。
-//                ft.add(R.id.content,HomePageFragment.newInstance());
-//                 // 提交
-//                ft.commit();
 
 
     }
 
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
-
-    }
 
     @Override
     public void initData() {

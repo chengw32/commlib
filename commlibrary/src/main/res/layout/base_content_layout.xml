@@ -15,7 +15,6 @@
     <com.afm.commlibrary.bases.TopBarView
         android:id="@+id/mTopBarView"
         android:layout_width="wrap_content"
-        android:background="@color/black"
         android:layout_height="@dimen/top_bar_height"></com.afm.commlibrary.bases.TopBarView>
     <FrameLayout
         android:id="@+id/mContent"

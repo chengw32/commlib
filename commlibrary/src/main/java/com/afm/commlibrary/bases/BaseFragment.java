@@ -34,7 +34,7 @@ public abstract class BaseFragment extends Fragment implements EasyPermissions.P
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         EventBus.getDefault().register(this);
         View view = setContentView(inflater, container);
-        unbinder = ButterKnife.bind(this, view);
+
         initUI(view);
         initData(view);
         return view;
@@ -50,8 +50,6 @@ public abstract class BaseFragment extends Fragment implements EasyPermissions.P
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(BaseEvent event) {/* Do something */}
 
-    ;
-
 
     protected View setContentView(LayoutInflater inflater, ViewGroup container) {
 
@@ -61,12 +59,16 @@ public abstract class BaseFragment extends Fragment implements EasyPermissions.P
             inflate = inflater.inflate(getCustomLayoutId(), container, false);
         } else {
             //页面封装了topbarview
+
+            int layoutId = getLayoutId();
+
             inflate = inflater.inflate(R.layout.base_content_layout, container, false);
             mTopBarView = inflate.findViewById(R.id.mTopBarView);
             //用于放除了topbarview的容器 这样不用每个页面都添加topbarview
+            if (layoutId <= 0) return inflate;
             ViewGroup content = inflate.findViewById(R.id.mContent);
             //除了topbarview 内容部分的layout
-            View contentView = LayoutInflater.from(getActivity()).inflate(getLayoutId(), null);
+            View contentView = LayoutInflater.from(getActivity()).inflate(layoutId, null);
             //将内容部分添加到总容器
             content.addView(contentView);
         }

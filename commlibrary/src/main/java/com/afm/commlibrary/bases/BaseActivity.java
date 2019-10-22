@@ -46,8 +46,6 @@ public abstract class BaseActivity extends AppCompatActivity implements EasyPerm
         xContext = this;
         ActivityManagerUtil.getInstance().addActivity(this);
         setContentView();
-        EventBus.getDefault().register(this);
-        ButterKnife.bind(this);
         initUI();
         initData();
     }
@@ -72,21 +70,25 @@ public abstract class BaseActivity extends AppCompatActivity implements EasyPerm
     public abstract void initData();
 
 
-    protected void setContentView() {
+    private void setContentView() {
+
+        int customLayoutId = getCustomLayoutId();
+        int layoutId = getLayoutId();
+        if (customLayoutId <= 0 && layoutId <= 0) return;//两个布局都为0
+
         setContentView(R.layout.base_content_layout);
         mStatusBar = findViewById(R.id.mStatusBar);
         mTopBarView = findViewById(R.id.mTopBarView);
 
         ViewGroup viewById = findViewById(R.id.mContent);
         View inflate;
-        int customLayoutId = getCustomLayoutId();
         if (customLayoutId != 0) {
-            //customLayoutId 不为零说明 当前页面不需要通用的 topbarview。
+            //customLayoutId 不为零说明 当前页面全部由自己定义 不需要已经封装好的 topbarview
             mTopBarView.setVisibility(View.GONE);
             inflate = LayoutInflater.from(this).inflate(getCustomLayoutId(), null);
         } else {
-            //customLayoutId为0 说明需要用共同封装的topbarview
-            inflate = LayoutInflater.from(this).inflate(getLayoutId(), null);
+            //customLayoutId为0 说明使用封装好的框架 将页面添加到内容容器
+            inflate = LayoutInflater.from(this).inflate(layoutId, null);
         }
 
         //如果布局设置了颜色 则topbar跟statusBar也设置颜色
@@ -102,6 +104,11 @@ public abstract class BaseActivity extends AppCompatActivity implements EasyPerm
         }
 
         viewById.addView(inflate);
+
+
+
+        EventBus.getDefault().register(this);
+        ButterKnife.bind(this);
     }
 
 
@@ -155,8 +162,6 @@ public abstract class BaseActivity extends AppCompatActivity implements EasyPerm
         EventBus.getDefault().unregister(this);
         super.onDestroy();
     }
-
-
 
 
     /**

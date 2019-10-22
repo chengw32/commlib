@@ -158,8 +158,6 @@ public class XUtils {
         InputMethodManager imm = (InputMethodManager) BaseApplication.mInstance
                 .getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.showSoftInput(v, InputMethodManager.RESULT_SHOWN);
-        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,
-                InputMethodManager.HIDE_IMPLICIT_ONLY);
     }
 
     public static int px2sp( float pxValue) {
