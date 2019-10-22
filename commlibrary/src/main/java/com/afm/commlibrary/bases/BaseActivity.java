@@ -16,7 +16,6 @@ import com.afm.commlibrary.R;
 import com.afm.commlibrary.Utils.ActivityManagerUtil;
 import com.afm.commlibrary.Utils.XLogUtil;
 import com.afm.commlibrary.Utils.XUtils;
-import com.afm.commlibrary.application.BaseApplication;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;

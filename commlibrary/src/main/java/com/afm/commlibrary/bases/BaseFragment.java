@@ -34,7 +34,7 @@ public abstract class BaseFragment extends Fragment implements EasyPermissions.P
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         EventBus.getDefault().register(this);
         View view = setContentView(inflater, container);
-
+        unbinder = ButterKnife.bind(view);
         initUI(view);
         initData(view);
         return view;
@@ -133,6 +133,7 @@ public abstract class BaseFragment extends Fragment implements EasyPermissions.P
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        unbinder.unbind();
+        if (null != unbinder)
+            unbinder.unbind();
     }
 }
