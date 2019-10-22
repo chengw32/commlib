@@ -101,6 +101,13 @@ public class BaseWebViewActivity extends BaseActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        if (null != mWebView && mWebView.canGoBack())
+            mWebView.goBack();
+        else
+        super.onBackPressed();
+    }
 
     @Override
     public void initData() {

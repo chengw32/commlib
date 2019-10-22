@@ -24,7 +24,7 @@ public class RefreshLoadMoreRecyclerViewNoDiver extends SwipeRefreshLayout {
 
     private RecyclerView mRecyclerView;
     private BaseQuickAdapter adapter;
-//    private View emptyView;
+    private View emptyView;
 //    private TextView mTvEmptyHint ;
 
     public RefreshLoadMoreRecyclerViewNoDiver(Context context) {
@@ -46,7 +46,7 @@ public class RefreshLoadMoreRecyclerViewNoDiver extends SwipeRefreshLayout {
     }
 
 
-    public void showRefresh(){
+    public void showRefresh() {
         setRefreshing(true);
     }
 
@@ -65,6 +65,7 @@ public class RefreshLoadMoreRecyclerViewNoDiver extends SwipeRefreshLayout {
 //        mTvEmptyHint = emptyView.findViewById(R.id.tv_empty_hint);
 //        adapter.setEmptyView(emptyView);
     }
+
     public void setAdapter(XAdapter xAdapter) {
         adapter = xAdapter.mAdapter;
         //调用方法 adapter.getViewByPosition 的时候需要将 recycle 设置进去
@@ -143,6 +144,7 @@ public class RefreshLoadMoreRecyclerViewNoDiver extends SwipeRefreshLayout {
     public void setOnItemClickListener(BaseQuickAdapter.OnItemClickListener listener) {
         if (null != adapter) adapter.setOnItemClickListener(listener);
     }
+
     /**
      * Author chen guo wu
      * Time 2018/8/14 0014 下午 3:23
@@ -151,13 +153,14 @@ public class RefreshLoadMoreRecyclerViewNoDiver extends SwipeRefreshLayout {
     public void setOnItemLongClickListener(BaseQuickAdapter.OnItemLongClickListener listener) {
         if (null != adapter) adapter.setOnItemLongClickListener(listener);
     }
+
     /**
      * Author chen guo wu
      * Time 2018/8/14 0014 下午 3:23
      * Des 行长按事件
      */
     public View getViewByPersion(int position, int viewId) {
-        if (null != adapter) return adapter.getViewByPosition(position,viewId);
+        if (null != adapter) return adapter.getViewByPosition(position, viewId);
         return null;
     }
 
@@ -237,11 +240,17 @@ public class RefreshLoadMoreRecyclerViewNoDiver extends SwipeRefreshLayout {
     public void addNewData(List newData) {
         if (null != adapter)
             adapter.addData(newData);
+        if (isRefreshing())
+            setRefreshing(false);
+        if (null != newData && newData.size() == 0) onLoadMoreComplete();
     }
 
     public void setNewData(List newData) {
         if (null != adapter)
             adapter.setNewData(newData);
+        if (isRefreshing())
+            setRefreshing(false);
+        if (null != newData && newData.size() == 0) onLoadMoreComplete();
     }
 
     public void notifyDataSetChanged() {
@@ -289,12 +298,23 @@ public class RefreshLoadMoreRecyclerViewNoDiver extends SwipeRefreshLayout {
      * Author chen guo wu
      * Time 2018/9/16 0016 下午 4:06
      * Des 添加头部
-     * */
+     */
     public void addHeadView(View headView) {
         if (null != adapter)
-        adapter.addHeaderView(headView) ;
+            adapter.addHeaderView(headView);
     }
 
+///**
+// * Author chenguowu
+// * Time 2019/1/21 14:17
+// * Des 要在 setAdapter 之后设置
+// * Des 要在 setAdapter 之后设置
+// * Des 要在 setAdapter 之后设置
+// * */
+    public void setEmptyView(View emptyView){
+        if (null != emptyView && null != adapter)
+            adapter.setEmptyView(emptyView);
+    }
 ///**
 // * Author chenguowu
 // * Time 2019/1/21 14:17

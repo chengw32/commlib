@@ -27,10 +27,10 @@
         android:text="hahahahahah"
         android:layout_height="wrap_content"></EditText>
 
-    <ImageView
+    <CheckBox
         android:id="@+id/mIv"
         android:layout_width="50dp"
-        android:layout_height="50dp"></ImageView>
+        android:layout_height="50dp"></CheckBox>
 
 
 </LinearLayout>

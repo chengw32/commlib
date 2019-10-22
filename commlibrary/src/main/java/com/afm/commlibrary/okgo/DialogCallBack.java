@@ -2,20 +2,10 @@ package com.afm.commlibrary.okgo;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.view.Window;
 
-import com.afm.commlibrary.Utils.ActivityManagerUtil;
-import com.afm.commlibrary.Utils.BaseSPUtil;
-import com.afm.commlibrary.Utils.XToastUtil;
-import com.afm.commlibrary.Utils.XLogUtil;
-import com.afm.commlibrary.application.BaseApplication;
-import com.afm.commlibrary.beans.BaseBean;
-import com.alibaba.fastjson.JSON;
-import com.lzy.okgo.model.Response;
+import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.request.base.Request;
-
-import okhttp3.Headers;
 
 
 /**
@@ -23,26 +13,19 @@ import okhttp3.Headers;
  * 如果 activity 为空 则不创建提升进度条提醒
  */
 
-public abstract class DialogCallBack<T> extends JsonCallback<T> {
+public abstract class DialogCallBack extends StringCallback {
 
     protected ProgressDialog dialog;
-    protected Class<T> clazz;
     protected boolean isShowMessage;
 
-    public DialogCallBack(Class<T> tClass) {
-        super((Class<T>) String.class);
-        clazz = tClass;
+    public DialogCallBack() {
         initDialog(null);
     }
-    public DialogCallBack(Activity activity, Class<T> tClass) {
-        super((Class<T>) String.class);
-        clazz = tClass;
+    public DialogCallBack(Activity activity) {
         initDialog(activity);
     }
 
-    public DialogCallBack(Activity activity, Class<T> tClass, boolean showMessage) {
-        super((Class<T>) String.class);
-        clazz = tClass;
+    public DialogCallBack(Activity activity,  boolean showMessage) {
         this.isShowMessage = showMessage;
         initDialog(activity);
     }
@@ -58,7 +41,7 @@ public abstract class DialogCallBack<T> extends JsonCallback<T> {
     }
 
     @Override
-    public void onStart(Request<T, ? extends Request> request) {
+    public void onStart(Request<String, ? extends Request> request) {
         if (dialog != null && !dialog.isShowing()) {
             dialog.show();
         }

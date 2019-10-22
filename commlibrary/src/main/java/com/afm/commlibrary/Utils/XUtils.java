@@ -5,9 +5,12 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
+import android.os.Handler;
 import android.provider.Settings;
 import android.util.DisplayMetrics;
 import android.view.Display;
@@ -149,14 +152,14 @@ public class XUtils {
 
     public static void hideImm(View v){
         InputMethodManager imm = (InputMethodManager) BaseApplication.mInstance.getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
-
         imm.hideSoftInputFromWindow(v.getWindowToken(), 0); //强制隐藏键盘
     }
     public static void showImm(View v){
-        InputMethodManager imm = (InputMethodManager) BaseApplication.mInstance.getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
-        imm.showSoftInput(v,InputMethodManager.SHOW_FORCED);
+        InputMethodManager imm = (InputMethodManager) BaseApplication.mInstance
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(v, InputMethodManager.RESULT_SHOWN);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,
+                InputMethodManager.HIDE_IMPLICIT_ONLY);
     }
 
     public static int px2sp( float pxValue) {
@@ -186,4 +189,71 @@ public class XUtils {
         return (int) (dipValue * scale + 0.5f);
     }
 
+
+
+    public static int getVersionCode(Context context){
+        try {
+            PackageInfo packageInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
+            return packageInfo.versionCode;
+
+        } catch (PackageManager.NameNotFoundException e) {
+            return 1;
+        }
+    }
+    public static String getVersionName(Context context){
+        try {
+            PackageInfo packageInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
+            return packageInfo.versionName;
+
+        } catch (PackageManager.NameNotFoundException e) {
+            return "1.0";
+        }
+    }
+
+
+    public static void upApp(Context context,String packageName){
+        Intent intentx = context.getPackageManager().getLaunchIntentForPackage(packageName);
+        if (intentx != null) {
+            intentx.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            context.startActivity(intentx);
+        }
+    }
+
+    static Handler timerHandler;
+    static Runnable timerRunnable;
+    //是否在两秒内
+    static boolean isInTime;
+
+    public static void exitApp(Activity activity) {
+        if (isInTime) {
+            isInTime = false;
+            timerHandler = null;
+            timerRunnable = null;
+            System.exit(0);
+            activity.finish();
+        } else {
+            XToastUtil.show("再点一次退出程序");
+            isInTime = true;
+        }
+
+        if (null == timerHandler) timerHandler = new Handler();
+        if (null == timerRunnable) timerRunnable = new Runnable() {
+            @Override
+            public void run() {
+                isInTime = false;
+            }
+        };
+        timerHandler.postDelayed(timerRunnable, 2000);
+    }
+
+
+    public static boolean isEmpty(String str){
+
+        if (null == str)return true ;
+
+        String strTrim = str.trim();
+
+        return  strTrim.length() == 0 || "null".equals(strTrim) || "NULL".equals(strTrim);
+
+    }
 }

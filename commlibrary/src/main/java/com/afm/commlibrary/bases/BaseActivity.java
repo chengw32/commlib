@@ -169,7 +169,6 @@ public abstract class BaseActivity extends AppCompatActivity implements EasyPerm
             if (v != null && v instanceof EditText) {
                 if (isShouldHideKeyboard(v, ev)) {
                     XUtils.hideImm(v);
-//                        v.clearFocus();
                 }
             }
             return super.dispatchTouchEvent(ev);
