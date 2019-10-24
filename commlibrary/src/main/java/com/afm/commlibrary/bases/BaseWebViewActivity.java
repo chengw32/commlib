@@ -15,13 +15,10 @@ import android.widget.ProgressBar;
 import com.afm.commlibrary.R;
 import com.afm.commlibrary.Utils.XLogUtil;
 
-import butterknife.BindView;
-import me.jessyan.autosize.utils.LogUtils;
-
 /**
  * Created by chenguowu on 2019/6/13.
  */
-public class BaseWebViewActivity extends BaseActivity {
+public class BaseWebViewActivity extends XBaseActivity {
 
     protected WebView mWebView;
     private ProgressBar mProgressBar ;

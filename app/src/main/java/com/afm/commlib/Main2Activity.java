@@ -1,12 +1,8 @@
 package com.afm.commlib;
 
-import androidx.appcompat.app.AppCompatActivity;
+import com.afm.commlibrary.bases.XBaseActivity;
 
-import android.os.Bundle;
-
-import com.afm.commlibrary.bases.BaseActivity;
-
-public class Main2Activity extends BaseActivity {
+public class Main2Activity extends XBaseActivity {
 
 
     @Override
