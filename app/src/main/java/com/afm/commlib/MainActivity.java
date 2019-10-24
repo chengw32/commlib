@@ -1,6 +1,9 @@
 package com.afm.commlib;
 
 
+import android.widget.TextView;
+
+import com.afm.commlibrary.bases.BaseTextView;
 import com.afm.commlibrary.bases.BaseWithImmersionBarActivity;
 
 public class MainActivity extends BaseWithImmersionBarActivity {
@@ -18,7 +21,6 @@ public class MainActivity extends BaseWithImmersionBarActivity {
 
     @Override
     public void initUI() {
-
 
     }
 
