@@ -79,11 +79,13 @@ public class RefreshLoadMoreRecyclerViewNoDiver extends SwipeRefreshLayout {
     public void onLoadMoreComplete() {
         if (isRefreshing())
             setRefreshing(false);
+        if (null != adapter)
         adapter.loadMoreComplete();
     }
 
 
     public void onLoadMoreEnd() {
+        if (null != adapter)
         adapter.loadMoreEnd();
     }
 
@@ -229,19 +231,23 @@ public class RefreshLoadMoreRecyclerViewNoDiver extends SwipeRefreshLayout {
      * *
      */
     public void addNewData(List newData) {
-        if (null != adapter)
-            adapter.addData(newData);
-        if (isRefreshing())
-            setRefreshing(false);
-        if (null != newData && newData.size() == 0) onLoadMoreComplete();
+        if (null != adapter && null != newData) {
+            if (newData.size() > 0) {
+                adapter.addData(newData);
+                onLoadMoreComplete();
+            } else {
+                onLoadMoreEnd();
+            }
+        }
     }
 
     public void setNewData(List newData) {
-        if (null != adapter)
+        if (null != adapter && null != newData && newData.size() > 0)
             adapter.setNewData(newData);
+        else
+            onLoadMoreEnd();
         if (isRefreshing())
             setRefreshing(false);
-        if (null != newData && newData.size() == 0) onLoadMoreComplete();
     }
 
     public void notifyDataSetChanged() {
