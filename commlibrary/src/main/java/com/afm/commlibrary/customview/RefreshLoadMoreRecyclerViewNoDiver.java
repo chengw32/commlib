@@ -66,15 +66,6 @@ public class RefreshLoadMoreRecyclerViewNoDiver extends SwipeRefreshLayout {
 //        adapter.setEmptyView(emptyView);
     }
 
-    public void setAdapter(XAdapter xAdapter) {
-        adapter = xAdapter.mAdapter;
-        //调用方法 adapter.getViewByPosition 的时候需要将 recycle 设置进去
-        xAdapter.mAdapter.bindToRecyclerView(mRecyclerView);
-        mRecyclerView.setAdapter(xAdapter.mAdapter);
-//        emptyView = LayoutInflater.from(getContext()).inflate(R.layout.empty_layout, null);
-//        mTvEmptyHint = emptyView.findViewById(R.id.tv_empty_hint);
-//        adapter.setEmptyView(emptyView);
-    }
 
     public RecyclerView getRecyclerView() {
         return mRecyclerView;
@@ -258,6 +249,12 @@ public class RefreshLoadMoreRecyclerViewNoDiver extends SwipeRefreshLayout {
             adapter.notifyDataSetChanged();
     }
 
+    public void onError() {
+        if (isRefreshing())
+            setRefreshing(false);
+        onLoadMoreError();
+    }
+
 //    public void hideEmptyView() {
 //        if (null != emptyView)
 //            emptyView.setVisibility(GONE);
@@ -304,14 +301,14 @@ public class RefreshLoadMoreRecyclerViewNoDiver extends SwipeRefreshLayout {
             adapter.addHeaderView(headView);
     }
 
-///**
+    ///**
 // * Author chenguowu
 // * Time 2019/1/21 14:17
 // * Des 要在 setAdapter 之后设置
 // * Des 要在 setAdapter 之后设置
 // * Des 要在 setAdapter 之后设置
 // * */
-    public void setEmptyView(View emptyView){
+    public void setEmptyView(View emptyView) {
         if (null != emptyView && null != adapter)
             adapter.setEmptyView(emptyView);
     }
