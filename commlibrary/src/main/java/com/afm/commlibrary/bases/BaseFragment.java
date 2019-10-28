@@ -76,7 +76,6 @@ public abstract class BaseFragment extends Fragment implements EasyPermissions.P
         return inflate;
     }
 
-
     /**
      * Author chenguowu
      * Time 2019/9/9 14:20

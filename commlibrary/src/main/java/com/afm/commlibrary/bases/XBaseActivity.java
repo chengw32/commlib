@@ -45,8 +45,18 @@ public abstract class XBaseActivity extends AppCompatActivity implements EasyPer
         xContext = this;
         ActivityManagerUtil.getInstance().addActivity(this);
         setContentView();
+
+    }
+
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
         initUI();
         initData();
+
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -82,8 +92,9 @@ public abstract class XBaseActivity extends AppCompatActivity implements EasyPer
         ViewGroup viewById = findViewById(R.id.mContent);
         View inflate;
         if (customLayoutId != 0) {
-            //customLayoutId 不为零说明 当前页面全部由自己定义 不需要已经封装好的 topbarview
+            //customLayoutId 不为零说明 当前页面全部由自己定义 不需要已经封装好的 topbarview 也不需要statusbar
             mTopBarView.setVisibility(View.GONE);
+            mStatusBar.setVisibility(View.GONE);
             inflate = LayoutInflater.from(this).inflate(getCustomLayoutId(), null);
         } else {
             //customLayoutId为0 说明使用封装好的框架 将页面添加到内容容器

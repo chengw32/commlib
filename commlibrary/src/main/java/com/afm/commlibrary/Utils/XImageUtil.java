@@ -18,20 +18,17 @@ import com.luck.picture.lib.entity.LocalMedia;
 import java.io.File;
 import java.util.List;
 
+import androidx.annotation.DrawableRes;
+
 /**
  * Created by Administrator on 2018/8/22 0022.
  */
 
 public class XImageUtil {
-	
-	//request code
-	public static final int IMAGE_REQUEST_CODE = 1000;
-	
-	
-	private static Dialog dialog;
-	
 
-	
+
+
+
 	public static void lodeImage(String url, ImageView mCoverImage) {
 		if (null == mCoverImage)return;
 		RequestOptions options = new RequestOptions()
@@ -42,26 +39,31 @@ public class XImageUtil {
 						new RequestOptions()
 								.frame(1000000)
 								.centerCrop()
-								.error(R.color.bar_grey)
+								.error(R.drawable.x_default)
 				)
 				.load(url)
 				.apply(options)
 				.into(mCoverImage);
 		
 	}
-	
-	public static void lodeImageDefault(String url, ImageView mCoverImage) {
+	public static void lodeImage(String url, ImageView mCoverImage,int colorOrDrawable) {
+		if (null == mCoverImage)return;
 		RequestOptions options = new RequestOptions()
 				.centerCrop()
-				.placeholder(R.color.bar_grey)
-				.error(R.color.bar_grey)
 				.diskCacheStrategy(DiskCacheStrategy.ALL);
 		Glide.with(BaseApplication.mInstance)
+				.setDefaultRequestOptions(
+						new RequestOptions()
+								.frame(1000000)
+								.centerCrop()
+								.error(colorOrDrawable)
+				)
 				.load(url)
 				.apply(options)
 				.into(mCoverImage);
 
 	}
+
 
 	/**
 	 * Author chenguowu

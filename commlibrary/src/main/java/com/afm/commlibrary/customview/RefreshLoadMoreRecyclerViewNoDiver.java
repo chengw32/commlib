@@ -238,14 +238,16 @@ public class RefreshLoadMoreRecyclerViewNoDiver extends SwipeRefreshLayout {
             } else {
                 onLoadMoreEnd();
             }
+        }else {
+            onLoadMoreError();
         }
     }
 
     public void setNewData(List newData) {
-        if (null != adapter && null != newData && newData.size() > 0)
+        if (null != adapter && null != newData)
             adapter.setNewData(newData);
-        else
-            onLoadMoreEnd();
+
+
         if (isRefreshing())
             setRefreshing(false);
     }
