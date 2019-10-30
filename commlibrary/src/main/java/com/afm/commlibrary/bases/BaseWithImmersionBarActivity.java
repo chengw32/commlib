@@ -30,7 +30,6 @@ public abstract class BaseWithImmersionBarActivity extends XBaseActivity impleme
             ViewGroup.LayoutParams layoutParams = mStatusBar.getLayoutParams();
             layoutParams.height = BaseApplication.statusBarHeight;
             mStatusBar.setLayoutParams(layoutParams);
-            mStatusBar.setVisibility(View.VISIBLE);
         }
     }
 }

@@ -46,18 +46,10 @@ public abstract class XBaseActivity extends AppCompatActivity implements EasyPer
         ActivityManagerUtil.getInstance().addActivity(this);
         setContentView();
 
-    }
-
-
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-
         initUI();
         initData();
-
     }
+
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(com.afm.commlibrary.bases.BaseEvent event) {/* Do something */}
