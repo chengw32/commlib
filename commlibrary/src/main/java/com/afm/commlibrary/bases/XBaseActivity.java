@@ -86,7 +86,6 @@ public abstract class XBaseActivity extends AppCompatActivity implements EasyPer
         if (customLayoutId != 0) {
             //customLayoutId 不为零说明 当前页面全部由自己定义 不需要已经封装好的 topbarview 也不需要statusbar
             mTopBarView.setVisibility(View.GONE);
-            mStatusBar.setVisibility(View.GONE);
             inflate = LayoutInflater.from(this).inflate(getCustomLayoutId(), null);
         } else {
             //customLayoutId为0 说明使用封装好的框架 将页面添加到内容容器
