@@ -11,12 +11,12 @@
     <com.afm.commlibrary.customview.XEditTextWithClean
         android:id="@+id/xxxx"
         android:layout_height="wrap_content"
+        android:background="@color/blue"
         android:layout_width="match_parent"
         x:x_edittext_hint_color="#222222"
         x:x_clean_icon_drawable="@drawable/sel_qq"
         x:x_edittext_text="abccccc"
         x:x_edittext_text_inputType="number"
-        x:x_edittext_padding_top="20dp"
         ></com.afm.commlibrary.customview.XEditTextWithClean>
 
     <EditText

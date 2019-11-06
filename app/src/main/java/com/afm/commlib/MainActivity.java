@@ -19,6 +19,7 @@ public class MainActivity extends BaseWithImmersionBarActivity {
     @Override
     public void initUI() {
 
+        setStatusBarGone();
     }
 
 

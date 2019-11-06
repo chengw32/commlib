@@ -16,6 +16,7 @@ import com.afm.commlibrary.R;
 import com.afm.commlibrary.Utils.ActivityManagerUtil;
 import com.afm.commlibrary.Utils.XLogUtil;
 import com.afm.commlibrary.Utils.XUtils;
+import com.afm.commlibrary.application.BaseApplication;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -46,8 +47,21 @@ public abstract class XBaseActivity extends AppCompatActivity implements EasyPer
         ActivityManagerUtil.getInstance().addActivity(this);
         setContentView();
 
+        initImmersionBar();
+
         initUI();
         initData();
+    }
+
+
+    /**
+     * Author chenguowu
+     * Des 初始化沉浸式
+     * */
+    protected  void initImmersionBar(){};
+
+    protected void setStatusBarGone(){
+        if (null != mStatusBar && View.VISIBLE == mStatusBar.getVisibility())mStatusBar.setVisibility(View.GONE);
     }
 
 
@@ -78,13 +92,17 @@ public abstract class XBaseActivity extends AppCompatActivity implements EasyPer
         if (customLayoutId <= 0 && layoutId <= 0) return;//两个布局都为0
 
         setContentView(R.layout.base_content_layout);
+
+
+        //状态栏占坑的view
         mStatusBar = findViewById(R.id.mStatusBar);
+
         mTopBarView = findViewById(R.id.mTopBarView);
 
         ViewGroup viewById = findViewById(R.id.mContent);
         View inflate;
         if (customLayoutId != 0) {
-            //customLayoutId 不为零说明 当前页面全部由自己定义 不需要已经封装好的 topbarview 也不需要statusbar
+            //customLayoutId 不为零说明 当前页面全部由自己定义 不需要已经封装好的 topbarview
             mTopBarView.setVisibility(View.GONE);
             inflate = LayoutInflater.from(this).inflate(getCustomLayoutId(), null);
         } else {
