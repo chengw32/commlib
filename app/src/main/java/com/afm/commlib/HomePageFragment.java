@@ -1,19 +1,15 @@
 package com.afm.commlib;
 
-import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.afm.commlibrary.bases.BaseFragment;
-import com.youth.banner.Banner;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.Nullable;
-import butterknife.BindView;
+import androidx.fragment.app.Fragment;
 
 
 /**
@@ -22,7 +18,6 @@ import butterknife.BindView;
 public class HomePageFragment extends Fragment {
 
 
-    private List imageList = new ArrayList();
 
     public static HomePageFragment newInstance() {
 
