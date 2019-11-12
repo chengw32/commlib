@@ -10,6 +10,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 
 import java.util.List;
 
+import androidx.annotation.ColorRes;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -354,5 +355,10 @@ public class RefreshLoadMoreRecyclerViewNoDiver extends SwipeRefreshLayout {
 //        if (null != mTvEmptyHint)
 //        mTvEmptyHint.setTextSize(getResources().getDimension(hintTextSize));
 //    }
+
+
+    public void addGridItemDecoration(@ColorRes int color, int lineWidth) {
+        mRecyclerView.addItemDecoration(new GridItemDecoration(getContext(),color,lineWidth));
+    }
 
 }

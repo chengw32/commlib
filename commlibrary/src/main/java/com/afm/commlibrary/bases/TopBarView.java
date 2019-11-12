@@ -14,6 +14,7 @@ import com.afm.commlibrary.R;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
 
 
 /**
@@ -75,6 +76,12 @@ public class TopBarView extends RelativeLayout {
             mTvTitle.setText(title);
         }
     }
+    public void setTitle(@StringRes int titleRes) {
+        if (null != mTvTitle) {
+            mTvTitle.setText(getResources().getString(titleRes));
+        }
+    }
+
 
     //设置标题
     public void setTitleTextColor(@ColorInt int color) {
