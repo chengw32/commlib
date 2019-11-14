@@ -408,7 +408,7 @@ public class RefreshLoadMoreRecyclerViewNoDiver extends SwipeRefreshLayout {
         setEnabled(true);
         setOnRefreshListener(() -> {
             pageNo = 1;
-            if (null != mGetDataListener) mGetDataListener.getData(pageNo);
+            if (null != mGetDataListener) mGetDataListener.getData();
         });
     }
 
@@ -416,17 +416,17 @@ public class RefreshLoadMoreRecyclerViewNoDiver extends SwipeRefreshLayout {
         adapter.setOnLoadMoreListener(() -> {
 
             pageNo++;
-            if (null != mGetDataListener) mGetDataListener.getData(pageNo);
+            if (null != mGetDataListener) mGetDataListener.getData();
 
         }, mRecyclerView);
     }
 
-    public int getCurrentPageNo() {
+    public int getPageNo() {
         return pageNo;
     }
 
     public interface GetDataListener {
-        void getData(int pageNo);
+        void getData();
     }
 
 }
