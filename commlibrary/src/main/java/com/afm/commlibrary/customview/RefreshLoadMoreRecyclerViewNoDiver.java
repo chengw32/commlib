@@ -23,9 +23,9 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
  */
 public class RefreshLoadMoreRecyclerViewNoDiver extends SwipeRefreshLayout {
 
-    private int pageNo = 1 ;
+    private int pageNo = 1;
 
-    private GetDataListener mGetDataListener ;
+    private GetDataListener mGetDataListener;
     private RecyclerView mRecyclerView;
     private BaseQuickAdapter adapter;
     private View emptyView;
@@ -84,13 +84,13 @@ public class RefreshLoadMoreRecyclerViewNoDiver extends SwipeRefreshLayout {
         if (isRefreshing())
             setRefreshing(false);
         if (null != adapter)
-        adapter.loadMoreComplete();
+            adapter.loadMoreComplete();
     }
 
 
     public void onLoadMoreEnd() {
         if (null != adapter)
-        adapter.loadMoreEnd();
+            adapter.loadMoreEnd();
     }
 
     public void onLoadMoreError() {
@@ -115,25 +115,26 @@ public class RefreshLoadMoreRecyclerViewNoDiver extends SwipeRefreshLayout {
      * Author chenguowu
      * Time 2019/11/14 16:58
      * Des 开启下拉刷新功能
-     * */
+     */
     public void openRefresh() {
         setEnabled(true);
         setOnRefreshListener(() -> {
-            pageNo = 1 ;
-           if (null != mGetDataListener)mGetDataListener.getData(pageNo);
+            pageNo = 1;
+            if (null != mGetDataListener) mGetDataListener.getData(pageNo);
         });
     }
+
     public void openLoadMore() {
         adapter.setOnLoadMoreListener(() -> {
 
-            pageNo++ ;
-           if (null != mGetDataListener)mGetDataListener.getData(pageNo);
+            pageNo++;
+            if (null != mGetDataListener) mGetDataListener.getData(pageNo);
 
         }, mRecyclerView);
     }
 
-    public int getCurrentPageNo(){
-        return pageNo ;
+    public int getCurrentPageNo() {
+        return pageNo;
     }
 
 
@@ -268,10 +269,30 @@ public class RefreshLoadMoreRecyclerViewNoDiver extends SwipeRefreshLayout {
             } else {
                 onLoadMoreEnd();
             }
+        } else {
+            onLoadMoreError();
+        }
+    }
+
+    public void setData(List newData) {
+        if (null != adapter && null != newData) {
+            if (pageNo == 1) {
+                adapter.setNewData(newData);
+                if (isRefreshing())
+                    setRefreshing(false);
+            }else {
+                if (newData.size() > 0) {
+                    adapter.addData(newData);
+                    onLoadMoreComplete();
+                } else {
+                    onLoadMoreEnd();
+                }
+            }
         }else {
             onLoadMoreError();
         }
     }
+
 
     public void setNewData(List newData) {
         if (null != adapter && null != newData)
@@ -387,17 +408,17 @@ public class RefreshLoadMoreRecyclerViewNoDiver extends SwipeRefreshLayout {
 
 
     public void addGridItemDecoration(@ColorRes int color, int lineWidth) {
-        mRecyclerView.addItemDecoration(new GridItemDecoration(getContext(),color,lineWidth));
+        mRecyclerView.addItemDecoration(new GridItemDecoration(getContext(), color, lineWidth));
     }
 
 
-    public void setGetDataListener(GetDataListener listener){
-        this.mGetDataListener  = listener ;
+    public void setGetDataListener(GetDataListener listener) {
+        this.mGetDataListener = listener;
     }
 
 
-    public interface GetDataListener{
-         void getData(int pageNo);
+    public interface GetDataListener {
+        void getData(int pageNo);
     }
 
 }
