@@ -23,6 +23,9 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
  */
 public class RefreshLoadMoreRecyclerViewNoDiver extends SwipeRefreshLayout {
 
+    private int pageNo = 1 ;
+
+    private GetDataListener mGetDataListener ;
     private RecyclerView mRecyclerView;
     private BaseQuickAdapter adapter;
     private View emptyView;
@@ -107,6 +110,32 @@ public class RefreshLoadMoreRecyclerViewNoDiver extends SwipeRefreshLayout {
         setEnabled(true);
         setOnRefreshListener(listener);
     }
+
+    /**
+     * Author chenguowu
+     * Time 2019/11/14 16:58
+     * Des 开启下拉刷新功能
+     * */
+    public void openRefresh() {
+        setEnabled(true);
+        setOnRefreshListener(() -> {
+            pageNo = 1 ;
+           if (null != mGetDataListener)mGetDataListener.getData(pageNo);
+        });
+    }
+    public void openLoadMore() {
+        adapter.setOnLoadMoreListener(() -> {
+
+            pageNo++ ;
+           if (null != mGetDataListener)mGetDataListener.getData(pageNo);
+
+        }, mRecyclerView);
+    }
+
+    public int getCurrentPageNo(){
+        return pageNo ;
+    }
+
 
     /**
      * Author chen guo wu
@@ -359,6 +388,16 @@ public class RefreshLoadMoreRecyclerViewNoDiver extends SwipeRefreshLayout {
 
     public void addGridItemDecoration(@ColorRes int color, int lineWidth) {
         mRecyclerView.addItemDecoration(new GridItemDecoration(getContext(),color,lineWidth));
+    }
+
+
+    public void setGetDataListener(GetDataListener listener){
+        this.mGetDataListener  = listener ;
+    }
+
+
+    public interface GetDataListener{
+         void getData(int pageNo);
     }
 
 }
