@@ -36,13 +36,6 @@ public class MainActivity extends BaseWithImmersionBarActivity {
     @Override
     public void initUI() {
 
-        mTopBarView.setTitle("哈哈哈哈");
-        mFragments.add(HomePageFragment.newInstance());
-        mFragments.add(HomePageFragment.newInstance());
-        mFragments.add(HomePageFragment.newInstance());
-        mFragments.add(HomePageFragment.newInstance());
-        mFragments.add(HomePageFragment.newInstance());
-        mTabLayout.setViewPager(mViewPager,mFragments,mTabEntities,getSupportFragmentManager());
 
     }
 

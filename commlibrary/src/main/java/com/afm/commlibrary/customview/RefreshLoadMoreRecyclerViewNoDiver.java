@@ -111,31 +111,9 @@ public class RefreshLoadMoreRecyclerViewNoDiver extends SwipeRefreshLayout {
         setOnRefreshListener(listener);
     }
 
-    /**
-     * Author chenguowu
-     * Time 2019/11/14 16:58
-     * Des 开启下拉刷新功能
-     */
-    public void openRefresh() {
-        setEnabled(true);
-        setOnRefreshListener(() -> {
-            pageNo = 1;
-            if (null != mGetDataListener) mGetDataListener.getData(pageNo);
-        });
-    }
 
-    public void openLoadMore() {
-        adapter.setOnLoadMoreListener(() -> {
 
-            pageNo++;
-            if (null != mGetDataListener) mGetDataListener.getData(pageNo);
 
-        }, mRecyclerView);
-    }
-
-    public int getCurrentPageNo() {
-        return pageNo;
-    }
 
 
     /**
@@ -411,11 +389,41 @@ public class RefreshLoadMoreRecyclerViewNoDiver extends SwipeRefreshLayout {
         mRecyclerView.addItemDecoration(new GridItemDecoration(getContext(), color, lineWidth));
     }
 
-
-    public void setGetDataListener(GetDataListener listener) {
+    public void setGetDataListenerR(GetDataListener listener) {
         this.mGetDataListener = listener;
+        openRefresh();
+    }
+    public void setGetDataListenerRL(GetDataListener listener) {
+        this.mGetDataListener = listener;
+        openRefresh();
+        openLoadMore();
     }
 
+    /**
+     * Author chenguowu
+     * Time 2019/11/14 16:58
+     * Des 开启下拉刷新功能
+     */
+    private void openRefresh() {
+        setEnabled(true);
+        setOnRefreshListener(() -> {
+            pageNo = 1;
+            if (null != mGetDataListener) mGetDataListener.getData(pageNo);
+        });
+    }
+
+    private void openLoadMore() {
+        adapter.setOnLoadMoreListener(() -> {
+
+            pageNo++;
+            if (null != mGetDataListener) mGetDataListener.getData(pageNo);
+
+        }, mRecyclerView);
+    }
+
+    public int getCurrentPageNo() {
+        return pageNo;
+    }
 
     public interface GetDataListener {
         void getData(int pageNo);
