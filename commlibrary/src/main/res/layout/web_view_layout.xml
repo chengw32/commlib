@@ -4,10 +4,10 @@
               android:layout_height="match_parent"
               android:orientation="vertical">
 
-    <com.afmoney.commlibrary.bases.TopBarView
+    <com.afm.commlibrary.bases.TopBarView
         android:id="@+id/mTopBarView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></com.afmoney.commlibrary.bases.TopBarView>
+        android:layout_height="wrap_content"></com.afm.commlibrary.bases.TopBarView>
 
 
     <ProgressBar
@@ -18,7 +18,7 @@
         android:indeterminateOnly="false"
         android:max="100"
         android:progressDrawable="@drawable/progressbar"
-        android:visibility="visible"></ProgressBar>
+        android:visibility="gone"></ProgressBar>
 
     <WebView
         android:id="@+id/mWebView"

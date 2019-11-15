@@ -1,6 +1,7 @@
 package com.afm.commlib;
 
 
+import com.afm.commlibrary.bases.BaseWebViewActivity;
 import com.afm.commlibrary.bases.BaseWithImmersionBarActivity;
 import com.afm.commlibrary.customview.XCommonTabLayout;
 import com.flyco.tablayout.CommonTabLayout;
@@ -36,6 +37,7 @@ public class MainActivity extends BaseWithImmersionBarActivity {
     @Override
     public void initUI() {
 
+        startActivity(BaseWebViewActivity.class);
 
     }
 
