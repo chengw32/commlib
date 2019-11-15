@@ -20,5 +20,6 @@
 
     <application>
         <activity android:name=".bases.BaseWebViewActivity" />
+        <activity android:name=".bases.BaseWebViewWithImmBarActivity" />
     </application>
 </manifest>
