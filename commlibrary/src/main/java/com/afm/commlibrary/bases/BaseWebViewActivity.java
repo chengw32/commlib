@@ -25,7 +25,6 @@ public class BaseWebViewActivity extends XBaseActivity {
     protected TopBarView mTopBarView;
 
 
-
     @Override
     public int getLayoutId() {
         return R.layout.web_view_layout;
