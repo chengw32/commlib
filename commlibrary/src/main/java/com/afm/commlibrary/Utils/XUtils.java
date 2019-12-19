@@ -34,6 +34,7 @@ public class XUtils {
 
     /**
      * 判断字符串是否为URL
+     *
      * @param urls 需要判断的String类型url
      * @return true:是URL；false:不是URL
      */
@@ -55,6 +56,7 @@ public class XUtils {
 
     /**
      * 判断网络情况
+     *
      * @param context 上下文
      * @return false 表示没有网络 true 表示有网络
      */
@@ -139,57 +141,56 @@ public class XUtils {
         return vh;
     }
 
-    public static int getTopStatusBarHeight(){
-        int statusBarHeight = 0 ;
+    public static int getTopStatusBarHeight() {
+        int statusBarHeight = 0;
         int resourceId = BaseApplication.mInstance.getResources().getIdentifier("status_bar_height", "dimen", "android");
         if (resourceId > 0) {
             //根据资源ID获取响应的尺寸值
             statusBarHeight = BaseApplication.mInstance.getResources().getDimensionPixelSize(resourceId);
         }
-        return statusBarHeight ;
+        return statusBarHeight;
     }
 
 
-    public static void hideImm(View v){
+    public static void hideImm(View v) {
         InputMethodManager imm = (InputMethodManager) BaseApplication.mInstance.getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(v.getWindowToken(), 0); //强制隐藏键盘
     }
-    public static void showImm(View v){
+
+    public static void showImm(View v) {
         InputMethodManager imm = (InputMethodManager) BaseApplication.mInstance
                 .getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.showSoftInput(v, InputMethodManager.RESULT_SHOWN);
     }
 
-    public static int px2sp( float pxValue) {
+    public static int px2sp(float pxValue) {
         final float fontScale = BaseApplication.mInstance.getResources().getDisplayMetrics().scaledDensity;
-        return (int) (pxValue / fontScale );
+        return (int) (pxValue / fontScale);
     }
 
     public static int sp2px(float sp) {
-        final float fontScale =BaseApplication.mInstance.getResources().getDisplayMetrics().scaledDensity;
+        final float fontScale = BaseApplication.mInstance.getResources().getDisplayMetrics().scaledDensity;
         return (int) (sp * fontScale + 0.5f);
     }
 
-    public static int px2dip( float pxValue) {
-        final float scale =  BaseApplication.mInstance.getResources().getDisplayMetrics().density;
+    public static int px2dip(float pxValue) {
+        final float scale = BaseApplication.mInstance.getResources().getDisplayMetrics().density;
         return (int) (pxValue / scale + 0.5f);
     }
 
     /**
      * 将dip或dp值转换为px值，保证尺寸大小不变
      *
-     * @param dipValue
-     *            （DisplayMetrics类中属性density）
+     * @param dipValue （DisplayMetrics类中属性density）
      * @return
      */
-    public static int dip2px( float dipValue) {
+    public static int dip2px(float dipValue) {
         final float scale = BaseApplication.mInstance.getResources().getDisplayMetrics().density;
         return (int) (dipValue * scale + 0.5f);
     }
 
 
-
-    public static int getVersionCode(Context context){
+    public static int getVersionCode(Context context) {
         try {
             PackageInfo packageInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
             return packageInfo.versionCode;
@@ -198,7 +199,8 @@ public class XUtils {
             return 1;
         }
     }
-    public static String getVersionName(Context context){
+
+    public static String getVersionName(Context context) {
         try {
             PackageInfo packageInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
             return packageInfo.versionName;
@@ -209,7 +211,7 @@ public class XUtils {
     }
 
 
-    public static void upApp(Context context,String packageName){
+    public static void upApp(Context context, String packageName) {
         Intent intentx = context.getPackageManager().getLaunchIntentForPackage(packageName);
         if (intentx != null) {
             intentx.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -244,14 +246,21 @@ public class XUtils {
         timerHandler.postDelayed(timerRunnable, 2000);
     }
 
+    public static boolean isEmpty(CharSequence charSequence) {
+        if (null != charSequence) {
+            return isEmpty(charSequence.toString());
+        } else {
+            return true;
+        }
+    }
 
-    public static boolean isEmpty(String str){
+    public static boolean isEmpty(String str) {
 
-        if (null == str)return true ;
+        if (null == str) return true;
 
         String strTrim = str.trim();
 
-        return  strTrim.length() == 0 || "null".equals(strTrim) || "NULL".equals(strTrim);
+        return strTrim.length() == 0 || "null".equals(strTrim) || "NULL".equals(strTrim);
 
     }
 }

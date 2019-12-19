@@ -47,9 +47,22 @@ public class XTimer {
             };
 
         if (maxSeconds == 60)
-        handler.post(mRunnable);
+            handler.post(mRunnable);
 
         return maxSeconds == 60; //返回的数据表示是否 计时器不在运行
+    }
+
+
+    public static void cancle() {
+        if (null != handler && null != mRunnable) {
+            maxSeconds = 60;
+            if (null != currentView) {
+                currentView.requestFocus();
+                currentView.setEnabled(true);
+                currentView.setText("获取验证码");
+            }
+            handler.removeCallbacks(mRunnable);
+        }
     }
 
 }
