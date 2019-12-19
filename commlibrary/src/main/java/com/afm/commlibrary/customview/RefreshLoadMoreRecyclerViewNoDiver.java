@@ -424,11 +424,11 @@ public class RefreshLoadMoreRecyclerViewNoDiver extends SwipeRefreshLayout {
     public int getPageNo() {
         return pageNo;
     }
-    public void setPageNo(int pageNo) {
-        if (pageNo <1){
-            this.pageNo =1 ;
+    public int setPageNo(int pageNo) {
+        if (pageNo <0){
+           return this.pageNo =0 ;
         }else {
-            this.pageNo = pageNo ;
+           return this.pageNo = pageNo ;
         }
 
     }
