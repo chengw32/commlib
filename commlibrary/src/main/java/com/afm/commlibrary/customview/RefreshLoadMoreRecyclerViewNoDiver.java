@@ -28,7 +28,7 @@ public class RefreshLoadMoreRecyclerViewNoDiver extends SwipeRefreshLayout {
     private GetDataListener mGetDataListener;
     private RecyclerView mRecyclerView;
     private BaseQuickAdapter adapter;
-    private View emptyView;
+    private View mEmptyView,mHeadView;
 //    private TextView mTvEmptyHint ;
 
     public RefreshLoadMoreRecyclerViewNoDiver(Context context) {
@@ -61,6 +61,7 @@ public class RefreshLoadMoreRecyclerViewNoDiver extends SwipeRefreshLayout {
     }
 
     public void setAdapter(BaseQuickAdapter baseRecyclerAdapter) {
+        if (null == baseRecyclerAdapter) return;
         adapter = baseRecyclerAdapter;
         //调用方法 adapter.getViewByPosition 的时候需要将 recycle 设置进去
         baseRecyclerAdapter.bindToRecyclerView(mRecyclerView);
@@ -68,6 +69,10 @@ public class RefreshLoadMoreRecyclerViewNoDiver extends SwipeRefreshLayout {
 //        emptyView = LayoutInflater.from(getContext()).inflate(R.layout.empty_layout, null);
 //        mTvEmptyHint = emptyView.findViewById(R.id.tv_empty_hint);
 //        adapter.setEmptyView(emptyView);
+        if (null != mEmptyView)
+            adapter.addHeaderView(mEmptyView);
+        if (null != mHeadView)
+            adapter.addHeaderView(mHeadView);
     }
 
 
@@ -110,10 +115,6 @@ public class RefreshLoadMoreRecyclerViewNoDiver extends SwipeRefreshLayout {
         setEnabled(true);
         setOnRefreshListener(listener);
     }
-
-
-
-
 
 
     /**
@@ -258,7 +259,7 @@ public class RefreshLoadMoreRecyclerViewNoDiver extends SwipeRefreshLayout {
                 adapter.setNewData(newData);
                 if (isRefreshing())
                     setRefreshing(false);
-            }else {
+            } else {
                 if (newData.size() > 0) {
                     adapter.addData(newData);
                     onLoadMoreComplete();
@@ -266,7 +267,7 @@ public class RefreshLoadMoreRecyclerViewNoDiver extends SwipeRefreshLayout {
                     onLoadMoreEnd();
                 }
             }
-        }else {
+        } else {
             onLoadMoreError();
         }
     }
@@ -334,6 +335,8 @@ public class RefreshLoadMoreRecyclerViewNoDiver extends SwipeRefreshLayout {
      * Des 添加头部
      */
     public void addHeadView(View headView) {
+        if (headView == null)return;
+        mHeadView = headView ;
         if (null != adapter)
             adapter.addHeaderView(headView);
     }
@@ -341,48 +344,13 @@ public class RefreshLoadMoreRecyclerViewNoDiver extends SwipeRefreshLayout {
     ///**
 // * Author chenguowu
 // * Time 2019/1/21 14:17
-// * Des 要在 setAdapter 之后设置
-// * Des 要在 setAdapter 之后设置
-// * Des 要在 setAdapter 之后设置
 // * */
     public void setEmptyView(View emptyView) {
-        if (null != emptyView && null != adapter)
+        if (null == emptyView) return;
+        mEmptyView = emptyView;
+        if (null != adapter)
             adapter.setEmptyView(emptyView);
     }
-///**
-// * Author chenguowu
-// * Time 2019/1/21 14:17
-// * Des 要在 setAdapter 之后设置
-// * Des 要在 setAdapter 之后设置
-// * Des 要在 setAdapter 之后设置
-// * */
-//    public void setEmptyHintText(String hintText){
-//        if (null != mTvEmptyHint)
-//        mTvEmptyHint.setText(hintText);
-//    }
-//
-///**
-// * Author chenguowu
-// * Time 2019/1/21 14:17
-// * Des 要在 setAdapter 之后设置
-// * Des 要在 setAdapter 之后设置
-// * Des 要在 setAdapter 之后设置
-// * */
-//    public void setEmptyTextColor(int hintTextColor){
-//        if (null != mTvEmptyHint)
-//        mTvEmptyHint.setTextColor(getResources().getColor(hintTextColor));
-//    }
-///**
-// * Author chenguowu
-// * Time 2019/1/21 14:17
-// * Des 要在 setAdapter 之后设置
-// * Des 要在 setAdapter 之后设置
-// * Des 要在 setAdapter 之后设置
-// * */
-//    public void setEmptyTextSize(int hintTextSize){
-//        if (null != mTvEmptyHint)
-//        mTvEmptyHint.setTextSize(getResources().getDimension(hintTextSize));
-//    }
 
 
     public void addGridItemDecoration(@ColorRes int color, int lineWidth) {
@@ -393,6 +361,7 @@ public class RefreshLoadMoreRecyclerViewNoDiver extends SwipeRefreshLayout {
         this.mGetDataListener = listener;
         openRefresh();
     }
+
     public void setGetDataListenerRL(GetDataListener listener) {
         this.mGetDataListener = listener;
         openRefresh();
@@ -424,11 +393,12 @@ public class RefreshLoadMoreRecyclerViewNoDiver extends SwipeRefreshLayout {
     public int getPageNo() {
         return pageNo;
     }
+
     public int setPageNo(int pageNo) {
-        if (pageNo <0){
-           return this.pageNo =0 ;
-        }else {
-           return this.pageNo = pageNo ;
+        if (pageNo < 0) {
+            return this.pageNo = 0;
+        } else {
+            return this.pageNo = pageNo;
         }
 
     }
