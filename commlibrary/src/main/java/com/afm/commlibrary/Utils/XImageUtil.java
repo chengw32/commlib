@@ -92,6 +92,18 @@ public class XImageUtil {
 
     /**
      * Author chenguowu
+     * Time 2020/1/13 19:05
+     * Des 单张图片的时候，比如更改图片
+     * */
+    public static void showPictrueSelector(Activity activity, int maxSelectNum,boolean enableCorop) {
+        showPictrueSelector(activity, maxSelectNum, enableCorop, null, 0, 0,0,0);
+    }
+    public static void showPictrueSelector(Activity activity, int maxSelectNum,boolean enableCorop, List<LocalMedia> selectList) {
+        showPictrueSelector(activity, maxSelectNum, enableCorop, selectList, 0, 0,0,0);
+    }
+
+    /**
+     * Author chenguowu
      * Time 2020/1/13 17:48
      * Des 设置裁切出来的图片框高
      * */
@@ -141,34 +153,6 @@ public class XImageUtil {
         pictureSelectionModel.forResult(PictureConfig.CHOOSE_REQUEST);//结果回调onActivityResult code
     }
 
-    public static void showPictrueSelector(Activity activity, int maxSelectNum, boolean enableCrop) {
-
-        PictureSelector.create(activity)
-                .openGallery(PictureMimeType.ofImage())// 全部.PictureMimeType.ofAll()、图片.ofImage()、视频.ofVideo()、音频.ofAudio()
-                .theme(R.style.picture_default_style)// 主题样式设置 具体参考 values/styles   用法：R.style.picture.white.style
-                .maxSelectNum(maxSelectNum)// 最大图片选择数量
-                .minSelectNum(1)// 最小选择数量
-                .imageSpanCount(4)// 每行显示个数
-                .selectionMode(PictureConfig.MULTIPLE)// 多选 or 单选
-                .previewImage(true)// 是否可预览图片
-                .isCamera(true)// 是否显示拍照按钮
-                .isZoomAnim(true)// 图片列表点击 缩放效果 默认true
-                .enableCrop(enableCrop)// 是否裁剪
-                .compress(true)// 是否压缩
-                .synOrAsy(true)//同步true或异步false 压缩 默认同步
-                .compressSavePath(getPath())//压缩图片保存地址
-                .glideOverride(160, 160)// glide 加载宽高，越小图片列表越流畅，但会影响列表图片浏览的清晰度
-                .withAspectRatio(16, 9)// 裁剪比例 如16:9 3:2 3:4 1:1 可自定义
-                .freeStyleCropEnabled(true)// 裁剪框是否可拖拽
-                .circleDimmedLayer(false)// 是否圆形裁剪
-                .showCropFrame(false)// 是否显示裁剪矩形边框 圆形裁剪时建议设为false
-                .showCropGrid(false)// 是否显示裁剪矩形网格 圆形裁剪时建议设为false
-                .openClickSound(true)// 是否开启点击声音
-                .selectionMedia(null)// 是否传入已选图片
-                .minimumCompressSize(200)// 小于100kb的图片不压缩
-                .cropCompressQuality(90)// 裁剪压缩质量 默认100
-                .forResult(PictureConfig.CHOOSE_REQUEST);//结果回调onActivityResult code
-    }
 
     /**
      * 自定义压缩存储地址
