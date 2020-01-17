@@ -11,6 +11,7 @@ import com.afm.commlibrary.application.BaseApplication;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.DownsampleStrategy;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.luck.picture.lib.PictureSelectionModel;
 import com.luck.picture.lib.PictureSelector;
@@ -40,15 +41,15 @@ public class XImageUtil {
     }
 
     public static void lodeImage(String url, ImageView mCoverImage, int errorDrawable) {
-        lodeImage(url, mCoverImage, R.drawable.x_default, false);
+        lodeImage(url, mCoverImage, errorDrawable, false);
     }
+
 
     public static void lodeImage(String url, ImageView mCoverImage, boolean isCenterCorp) {
-        lodeImage(url, mCoverImage, R.drawable.x_default, false);
+        lodeImage(url, mCoverImage, R.drawable.x_default, isCenterCorp);
     }
-
     public static void lodeImage(String url, ImageView mCoverImage, boolean isCenterCorp, int errorDrawable) {
-        lodeImage(url, mCoverImage, errorDrawable, false);
+        lodeImage(url, mCoverImage, errorDrawable, isCenterCorp);
     }
 
     public static void lodeImage(String url, ImageView mCoverImage, int colorOrDrawable, boolean isCenterCorp) {
@@ -58,8 +59,6 @@ public class XImageUtil {
                 .diskCacheStrategy(DiskCacheStrategy.ALL);
         if (isCenterCorp)
             options.centerCrop();
-        else
-            options.fitCenter();
 
 
         Glide.with(BaseApplication.mInstance)
@@ -85,35 +84,35 @@ public class XImageUtil {
      * Time 2020/1/13 17:42
      * Des 自定义裁切框的宽高比
      * ratio 比例
-     * */
+     */
     public static void showPictrueSelector(Activity activity, int maxSelectNum, List<LocalMedia> selectList, int ratioX, int ratioY) {
-        showPictrueSelector(activity, maxSelectNum, true, selectList, ratioX, ratioY,0,0);
+        showPictrueSelector(activity, maxSelectNum, true, selectList, ratioX, ratioY, 0, 0);
     }
 
     /**
      * Author chenguowu
      * Time 2020/1/13 19:05
      * Des 单张图片的时候，比如更改图片
-     * */
-    public static void showPictrueSelector(Activity activity, int maxSelectNum,boolean enableCorop) {
-        showPictrueSelector(activity, maxSelectNum, enableCorop, null, 0, 0,0,0);
+     */
+    public static void showPictrueSelector(Activity activity, int maxSelectNum, boolean enableCorop) {
+        showPictrueSelector(activity, maxSelectNum, enableCorop, null, 0, 0, 0, 0);
     }
-    public static void showPictrueSelector(Activity activity, int maxSelectNum,boolean enableCorop, List<LocalMedia> selectList) {
-        showPictrueSelector(activity, maxSelectNum, enableCorop, selectList, 0, 0,0,0);
+
+    public static void showPictrueSelector(Activity activity, int maxSelectNum, boolean enableCorop, List<LocalMedia> selectList) {
+        showPictrueSelector(activity, maxSelectNum, enableCorop, selectList, 0, 0, 0, 0);
     }
 
     /**
      * Author chenguowu
      * Time 2020/1/13 17:48
      * Des 设置裁切出来的图片框高
-     * */
+     */
     public static void showPictrueSelector(Activity activity, int maxSelectNum, int cropW, int cropH, List<LocalMedia> selectList) {
-        showPictrueSelector(activity, maxSelectNum, true, selectList, 0, 0,cropW,cropH);
+        showPictrueSelector(activity, maxSelectNum, true, selectList, 0, 0, cropW, cropH);
     }
 
 
-
-    public static void showPictrueSelector(Activity activity, int maxSelectNum, boolean enableCrop, List<LocalMedia> selectList, int ratioX, int ratioY,int cropW,int cropH) {
+    public static void showPictrueSelector(Activity activity, int maxSelectNum, boolean enableCrop, List<LocalMedia> selectList, int ratioX, int ratioY, int cropW, int cropH) {
         PictureSelectionModel pictureSelectionModel = PictureSelector.create(activity)
                 .openGallery(PictureMimeType.ofImage())// 全部.PictureMimeType.ofAll()、图片.ofImage()、视频.ofVideo()、音频.ofAudio()
                 .theme(R.style.picture_default_style)// 主题样式设置 具体参考 values/styles   用法：R.style.picture.white.style
@@ -140,8 +139,8 @@ public class XImageUtil {
 
 
         //裁切后的图片大小
-        if (cropW > 0 && cropH > 0){
-            pictureSelectionModel.cropWH(cropW,cropH);
+        if (cropW > 0 && cropH > 0) {
+            pictureSelectionModel.cropWH(cropW, cropH);
         }
 
         //裁切框的宽高比

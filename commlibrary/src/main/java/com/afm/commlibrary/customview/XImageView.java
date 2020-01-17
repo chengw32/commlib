@@ -100,7 +100,7 @@ public class XImageView extends AppCompatImageView {
         bottomLeftRadius = ta.getDimension(R.styleable.YLCircleImageView_bottomLeftRadius, 0);
         bottomRightRadius = ta.getDimension(R.styleable.YLCircleImageView_bottomRightRadius, 0);
         //  展示类型
-        styleType = ta.getInt(R.styleable.YLCircleImageView_scaleType, TOP);
+        styleType = ta.getInt(R.styleable.YLCircleImageView_scaleType, FITXY);
         //  描边
         borderWidth = ta.getDimension(R.styleable.YLCircleImageView_borderWidth, 0);
         borderSpace = ta.getDimension(R.styleable.YLCircleImageView_borderSpace, 0);
@@ -138,11 +138,11 @@ public class XImageView extends AppCompatImageView {
         borderPaint.setStrokeWidth(borderWidth);
         borderPaint.setColor(borderColor);
 
-        if (circle) {
-            //  为什么设置这一条，因为Glide中，在into 源码内
-            //  不同的 ScaleType 会对drawable进行压缩，一旦压缩了，我们在onDraw里面获取图片的大小就没有意义了
-            setScaleType(ScaleType.MATRIX);
-        }
+//        if (circle) {
+//            //  为什么设置这一条，因为Glide中，在into 源码内
+//            //  不同的 ScaleType 会对drawable进行压缩，一旦压缩了，我们在onDraw里面获取图片的大小就没有意义了
+//            setScaleType(ScaleType.MATRIX);
+//        }
     }
 
     /**
@@ -197,8 +197,53 @@ public class XImageView extends AppCompatImageView {
 
         }
 
-        if ((null != drawable && circle)) {
+        if (circle) {
             RectF rectF = new RectF(paddingLeft, paddingTop, vw - paddingRight, vh - paddingBottom);
+            //  矩形需要缩小的值
+            float i = borderWidth + borderSpace;
+            //  这里解释一下，为什么要减去一个像素，因为像素融合时，由于锯齿的存在和图片像素不高，会导致图片和边框出现1像素的间隙
+            //  大家可以试一下，去掉这一句，然后用高清图就不会出问题，用非高清图就会出现
+            i = i > 1 ? i - 1 : 0;
+            //  矩形偏移
+            rectF.inset(i, i);
+            //  多边形
+            drawPath(canvas, rectF, paint, i);
+        }
+
+
+        if ((null != drawable && circle)) {
+            Bitmap bitmap = drawableToBitmap(drawable);
+            int height = bitmap.getHeight();
+            int width = bitmap.getWidth();
+            float left;
+            float top;
+            float right;
+            float bottom;
+            if (ScaleType.FIT_XY == getScaleType()) {
+                //拉伸模式
+                left = paddingLeft;
+                top = paddingTop;
+                right = vw - paddingRight;
+                bottom = vh - paddingBottom;
+            } else {
+                if (vh >= vw) {
+                    //控件比较高 则以宽度为准
+                    left = paddingLeft;
+                    top = paddingTop + vh / 2 - height / 2;
+                    right = vw - paddingRight;
+                    bottom = top + height - paddingBottom;
+                } else {
+
+                    //控件比较宽 以高度为准
+                    left = paddingLeft + vw / 2 - width / 2;
+                    top = paddingTop;
+                    right = left + width;
+                    bottom = vh - paddingBottom;
+
+                }
+            }
+            RectF rectF = new RectF(left, top, right, bottom);
+//            RectF rectF = new RectF(paddingLeft, paddingTop, vw - paddingRight, vh - paddingBottom);
             //  矩形需要缩小的值
             float i = borderWidth + borderSpace;
             //  这里解释一下，为什么要减去一个像素，因为像素融合时，由于锯齿的存在和图片像素不高，会导致图片和边框出现1像素的间隙
@@ -212,11 +257,10 @@ public class XImageView extends AppCompatImageView {
             //  设置像素融合模式
             paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
             //  drawable转为 bitmap
-            Bitmap bitmap = drawableToBitmap(drawable);
             //  根据图片的大小，控件的大小，图片的展示形式，然后来计算图片的src取值范围
-            Rect src = getSrc(bitmap, (int) rectF.width(), (int) rectF.height());
+//            Rect src = getSrc(bitmap, (int) rectF.width(), (int) rectF.height());
             //  dst取整个控件，也就是表示，我们的图片要占满整个控件
-            canvas.drawBitmap(bitmap, src, rectF, paint);
+            canvas.drawBitmap(bitmap, new Rect(0, 0, width, height), rectF, paint);
             paint.setXfermode(null);
             canvas.restoreToCount(layerId);
         } else {
