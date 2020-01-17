@@ -18,24 +18,26 @@
             android:layout_width="200dp"
             android:layout_height="100dp"
             app:radius="15dp"
+            android:scaleType="fitXY"
             android:layout_marginTop="2dp"
-            android:background="@color/black"
            />
 
         <com.afm.commlibrary.customview.XImageView
             android:layout_marginTop="2dp"
             android:id="@+id/mIv2"
             app:radius="15dp"
+            android:scaleType="fitXY"
             android:layout_width="100dp"
             android:layout_height="200dp"
-            android:background="@color/black" />
+            />
 
         <ImageView
             android:id="@+id/mIv3"
+            android:scaleType="fitXY"
             android:layout_marginTop="2dp"
             android:layout_width="200dp"
             android:layout_height="200dp"
-            android:background="@color/black" />
+           />
 
         <ImageView
             android:id="@+id/mIv4"

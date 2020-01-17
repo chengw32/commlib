@@ -13,6 +13,7 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 
@@ -33,6 +34,7 @@ public class XImageView extends AppCompatImageView {
      * 用于绘制Layer
      */
     private Paint paint;
+    private Paint backgroundPaint;//
     /**
      * 用于绘制描边
      */
@@ -136,6 +138,10 @@ public class XImageView extends AppCompatImageView {
         borderPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         borderPaint.setStyle(Paint.Style.STROKE);
         borderPaint.setStrokeWidth(borderWidth);
+        Drawable background = getBackground();
+        if (background != null && background instanceof ColorDrawable) {
+
+        }
         borderPaint.setColor(borderColor);
 
 //        if (circle) {
@@ -205,7 +211,7 @@ public class XImageView extends AppCompatImageView {
             //  大家可以试一下，去掉这一句，然后用高清图就不会出问题，用非高清图就会出现
             i = i > 1 ? i - 1 : 0;
             //  矩形偏移
-            rectF.inset(i, i);
+//            rectF.inset(i, i);
             //  多边形
             drawPath(canvas, rectF, paint, i);
         }
@@ -252,14 +258,13 @@ public class XImageView extends AppCompatImageView {
             //  矩形偏移
             rectF.inset(i, i);
             int layerId = canvas.saveLayer(rectF, null, Canvas.ALL_SAVE_FLAG);
-            //  多边形
-            drawPath(canvas, rectF, paint, i);
-            //  设置像素融合模式
+            //画圆角区域
+            drawPath(canvas, new RectF(0, 0, vw, vh), paint, i);
+
+            //  设置像素融合模式  图片与圆角区域重叠的地方变为透明
             paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
-            //  drawable转为 bitmap
-            //  根据图片的大小，控件的大小，图片的展示形式，然后来计算图片的src取值范围
-//            Rect src = getSrc(bitmap, (int) rectF.width(), (int) rectF.height());
-            //  dst取整个控件，也就是表示，我们的图片要占满整个控件
+
+            //将图片画在圆角区域  设置是层叠模式 重叠的地方变为透明 就有圆角效果
             canvas.drawBitmap(bitmap, new Rect(0, 0, width, height), rectF, paint);
             paint.setXfermode(null);
             canvas.restoreToCount(layerId);
@@ -351,6 +356,7 @@ public class XImageView extends AppCompatImageView {
      * @param offset 半径偏移量
      */
     private void drawPath(Canvas canvas, RectF rectF, Paint paint, float offset) {
+        paint.setColor(Color.WHITE);
         Path path = new Path();
         path.addRoundRect(rectF,
                 new float[]{

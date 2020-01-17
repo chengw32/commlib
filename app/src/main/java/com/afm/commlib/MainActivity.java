@@ -46,11 +46,11 @@ public class MainActivity extends BaseWithImmersionBarActivity {
     @Override
     public void initUI() {
 
-        String url = "http://image.xxomh.com/7fc39bbaa1274d168fb3f471d5ebbbb8.jpg-s160";
+        String url = "http://image.baidu.com/search/down?tn=download&word=download&ie=utf8&fr=detail&url=http%3A%2F%2Fa1.att.hudong.com%2F60%2F38%2F01200000194369136323385641912.jpg&thumburl=http%3A%2F%2Fimg5.imgtn.bdimg.com%2Fit%2Fu%3D2109617360%2C2782960381%26fm%3D26%26gp%3D0.jpg";
 
 
         XImageUtil.lodeImage(url,mIv1);
-        XImageUtil.lodeImage(url,mIv2,true);
+        XImageUtil.lodeImage(url,mIv2);
 
 
     }
