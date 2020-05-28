@@ -16,6 +16,7 @@ import com.lzy.okgo.request.base.Request;
 public abstract class DialogCallBack extends StringCallback {
 
     protected ProgressDialog dialog;
+    protected Activity mActivity;
     protected boolean isShowMessage;
 
     public DialogCallBack() {
@@ -27,6 +28,7 @@ public abstract class DialogCallBack extends StringCallback {
 
     public DialogCallBack(Activity activity,  boolean showMessage) {
         this.isShowMessage = showMessage;
+        mActivity = activity;
         initDialog(activity);
     }
 
@@ -42,7 +44,7 @@ public abstract class DialogCallBack extends StringCallback {
 
     @Override
     public void onStart(Request<String, ? extends Request> request) {
-        if (dialog != null && !dialog.isShowing()) {
+        if (dialog != null && !dialog.isShowing() && mActivity != null && !mActivity.isFinishing()) {
             dialog.show();
         }
     }
@@ -50,7 +52,7 @@ public abstract class DialogCallBack extends StringCallback {
     @Override
     public void onFinish() {
         //网络请求结束后关闭对话框
-        if (dialog != null && dialog.isShowing()) {
+        if (dialog != null && dialog.isShowing() && mActivity != null && !mActivity.isFinishing()) {
             dialog.dismiss();
         }
     }
